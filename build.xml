@@ -1,0 +1,23 @@
+<project name="DataMagus" default="fetch-libs">
+
+
+    <target name="fetch-libs" description="Download necessary libraries">
+
+        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/12.0.1/guava-12.0.1.jar"
+             dest="lib/guava-12.0.1.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/12.0.1/guava-12.0.1-javadoc.jar"
+             dest="lib/guava-12.0.1-javadoc.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/12.0.1/guava-12.0.1-sources.jar"
+             dest="lib/guava-12.0.1-sources.jar" skipexisting="true"/>
+
+        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/6.7/testng-6.7.jar"
+             dest="lib/testng-6.7.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/6.7/testng-6.7-javadoc.jar"
+             dest="lib/testng-6.7-javadoc.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/6.7/testng-6.7-sources.jar"
+             dest="lib/testng-6.7-sources.jar" skipexisting="true"/>
+
+    </target>
+
+
+</project>
