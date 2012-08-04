@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+
+<suite name="ModelTests" verbose="1">
+
+    <test name="ModelUnitTests">
+        <classes>
+
+            <class name="lb.datamagus.model.core.NodeTest"/>
+            <class name="lb.datamagus.model.core.BoneTest"/>
+            <class name="lb.datamagus.model.core.ProjectRootTest"/>
+
+        </classes>
+    </test>
+
+</suite>        
