@@ -3,7 +3,7 @@ package lb.kotlin.utils;
 import com.google.common.collect.*
 
 
-public fun<T> ImmutableList<T>.plusAssign(item: T): ImmutableList<T>
+public fun<T> ImmutableList<T>.plus(item: T): ImmutableList<T>
 {
     val builder = ImmutableList.builder<T>()!!
     builder.addAll(this)

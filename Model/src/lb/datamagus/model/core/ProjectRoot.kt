@@ -1,8 +1,8 @@
 package lb.datamagus.model.core;
 
-import org.jetbrains.jet.internal.com.google.common.collect.*
 import lb.kotlin.utils.*
 import lb.datamagus.model.concept.Conceptual
+import com.google.common.collect.ImmutableList
 
 
 public class ProjectRoot (bip: BIP) : Bone (bip)

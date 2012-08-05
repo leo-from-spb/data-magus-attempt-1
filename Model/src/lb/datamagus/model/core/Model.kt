@@ -5,7 +5,7 @@ import java.util.HashMap
 import lb.datamagus.model.core.exceptions.NoSuchNodeException
 import lb.datamagus.model.core.exceptions.NodeClassMismatchException
 import com.google.common.collect.ImmutableCollection
-import org.jetbrains.jet.internal.com.google.common.collect.ImmutableList
+import com.google.common.collect.ImmutableList
 
 
 public class Model
