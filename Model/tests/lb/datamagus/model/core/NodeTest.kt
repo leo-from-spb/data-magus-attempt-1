@@ -1,12 +1,10 @@
 package lb.datamagus.model.core;
 
 import org.testng.annotations.*
-import kotlin.dom.nodesToXmlString
-import sun.net.www.content.text.PlainTextInputStream
 import org.testng.Assert
 
 
-public class NodeTest
+class NodeTest
 {
 
     class TestNode (nip: NIP) : Node (nip) {}

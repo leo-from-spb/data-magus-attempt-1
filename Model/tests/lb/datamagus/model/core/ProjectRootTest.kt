@@ -2,12 +2,10 @@ package lb.datamagus.model.core;
 
 
 import org.testng.annotations.*
-import kotlin.dom.nodesToXmlString
-import sun.net.www.content.text.PlainTextInputStream
 import org.testng.Assert
 
 
-public class ProjectRootTest
+class ProjectRootTest
 {
 
     class TestBone (bip: BIP) : Bone (bip) {}
