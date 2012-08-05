@@ -88,7 +88,38 @@ class ConstListTest
     }
 
 
+    [Test]
+    fun test_plus_0()
+    {
+        val list0 = listOf<String>()
+        val list1 = list0 + "balalaika"
 
+        Assert.assertEquals(list1.size, 1)
+        Assert.assertEquals(list1[0], "balalaika")
+    }
+
+    [Test]
+    fun test_plus_1()
+    {
+        val list1 = listOf<String>("trumpet")
+        val list2 = list1 + "balalaika"
+
+        Assert.assertEquals(list2.size, 2)
+        Assert.assertEquals(list2[0], "trumpet")
+        Assert.assertEquals(list2[1], "balalaika")
+    }
+
+    [Test]
+    fun test_plus_2()
+    {
+        val list2 = listOf<String>("trumpet", "duduk")
+        val list3 = list2 + "balalaika"
+
+        Assert.assertEquals(list3.size, 3)
+        Assert.assertEquals(list3[0], "trumpet")
+        Assert.assertEquals(list3[1], "duduk")
+        Assert.assertEquals(list3[2], "balalaika")
+    }
 
 }
 
