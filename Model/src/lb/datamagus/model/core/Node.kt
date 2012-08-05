@@ -1,12 +1,13 @@
 package lb.datamagus.model.core;
 
 import java.util.HashSet
-
+import java.util.List
+import java.util.Collections
 
 
 /**
- * The most abstract class of the model hierarchy.
- **/
+* The most abstract class of the model hierarchy.
+**/
 public abstract class Node (nip: NIP)
 {
 
@@ -19,6 +20,7 @@ public abstract class Node (nip: NIP)
     public var dropt: Boolean = false
         private set(value) {$dropt = value}
 
+
     // constructor
     {
         nip.model.registerNode(this)
@@ -30,6 +32,15 @@ public abstract class Node (nip: NIP)
     {
         model.unregisterNode(this)
         dropt = true
+    }
+
+
+
+    //// FAMILY \\\\
+
+    open fun children() : List<Node>
+    {
+        return Collections.emptyList<Node>()!!
     }
 
 

@@ -64,7 +64,6 @@ public class NodeTest
 
 
     [Test]
-    // ASK [Test(dependsOnMethods="test_init_register")]
     fun test_drop_unregister()
     {
         val node = TestNode(NIP(model))
@@ -74,6 +73,7 @@ public class NodeTest
 
         Assert.assertFalse(model hasNode id)
     }
+
 
 
 

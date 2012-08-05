@@ -23,19 +23,25 @@ public class ProjectRootTest
 
 
     [Test]
+    fun test_createProjectRoot()
+    {
+        val r1 = model.createProjectRoot()
+        val r2 = model.getProjectRoot()
+
+        Assert.assertSame(r2, r1)
+        Assert.assertTrue(r1 in model.viewAllNodes())
+    }
+
+
+    [Test]
     fun test_newConceptual()
     {
-        // ASK
-        // java.lang.VerifyError: (class: lb/datamagus/model/core/ProjectRoot, method: newConceptual signature: (Ljava/lang/String;)Llb/datamagus/model/concept/Conceptual;) Incompatible argument to function
-        // at lb.datamagus.model.core.ProjectRootTest.test_newConceptual(ProjectRootTest.kt:32)
-
         val pr = ProjectRoot(BIP(model))
         val cm = pr.newConceptual("My Conceptual Model")
 
         Assert.assertTrue(cm in pr.conceptuals)
         Assert.assertEquals(cm.name, "My Conceptual Model")
     }
-
 
 
 }

@@ -3,6 +3,7 @@ package lb.datamagus.model.core;
 import lb.kotlin.utils.*
 import lb.datamagus.model.concept.Conceptual
 import com.google.common.collect.ImmutableList
+import java.util.List
 
 
 public class ProjectRoot (bip: BIP) : Bone (bip)
@@ -14,6 +15,13 @@ public class ProjectRoot (bip: BIP) : Bone (bip)
     public var conceptuals : ImmutableList<Conceptual>
                            = ImmutableList.of<Conceptual>()!!
            private set
+
+
+    /*
+    override fun children(): List<Node> {
+        return conceptuals
+    }
+    */
 
 
     public fun newConceptual(name: String? = null): Conceptual
