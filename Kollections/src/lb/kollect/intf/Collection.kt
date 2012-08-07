@@ -1,7 +1,7 @@
 package lb.kollect.intf;
 
 
-public trait Collection<out T>
+public trait Collection<out T> : Iterable<T>
 {
 
     val size: Int
@@ -15,6 +15,5 @@ public trait Collection<out T>
 
     fun contains(item: Any): Boolean
 
-    fun iterator(): Iterator<T>
-
 }
+
