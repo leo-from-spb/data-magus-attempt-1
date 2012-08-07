@@ -1,10 +1,7 @@
 package lb.datamagus.model.core;
 
-import lb.kotlin.utils.*
 import lb.datamagus.model.concept.Conceptual
-import com.google.common.collect.ImmutableList
-import java.util.List
-
+import lb.kollect.const.*
 
 public class ProjectRoot (bip: BIP) : Bone (bip)
 {
@@ -12,8 +9,8 @@ public class ProjectRoot (bip: BIP) : Bone (bip)
 
     //// CONCEPTUALS \\\\
 
-    public var conceptuals : ImmutableList<Conceptual>
-                           = ImmutableList.of<Conceptual>()!!
+    public var conceptuals : ConstList<Conceptual>
+                           = listOf()
            private set
 
 

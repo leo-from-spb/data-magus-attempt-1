@@ -1,9 +1,7 @@
 package lb.datamagus.model.core;
 
-import java.util.HashSet
-import java.util.List
-import java.util.Collections
-
+import lb.kollect.const.*
+import lb.kollect.intf.*
 
 /**
 * The most abstract class of the model hierarchy.
@@ -40,7 +38,7 @@ public abstract class Node (nip: NIP)
 
     open fun children() : List<Node>
     {
-        return Collections.emptyList<Node>()!!
+        return empty()
     }
 
 

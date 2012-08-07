@@ -6,4 +6,5 @@ public fun listOf<T>(vararg items: T): ConstList<T> =
         ConstList<T>(items)
 
 
+public fun empty<T>(): ConstNothing<T> = ConstNothing()
 

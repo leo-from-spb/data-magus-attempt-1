@@ -1,11 +1,10 @@
 package lb.kollect.views;
 
-import org.testng.annotations.*
-import org.testng.Assert
+import lb.kollect.const.*
 import lb.kollect.intf.*
 import lb.kollect.views.*
-import lb.kollect.const.*
-
+import org.testng.Assert
+import org.testng.annotations.*
 
 class JoinViewTest
 {
@@ -14,7 +13,7 @@ class JoinViewTest
     private val list456: List<Int> = listOf<Int>(444, 555, 666)
     private val list789: List<Int> = listOf<Int>(777, 888, 999)
 
-    private val list0: List<Int> = listOf<Int>()
+    private val list0: List<Int> = empty<Int>()
 
 
 
