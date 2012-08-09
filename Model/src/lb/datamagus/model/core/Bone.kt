@@ -2,10 +2,10 @@ package lb.datamagus.model.core;
 
 
 
-public abstract class Bone (bip:BIP) : Node (bip)
+public abstract class Bone (nip:NIP) : Node (nip)
 {
 
-    var name: String = bip.name ?: ""
+    var name: String = /*bip.name ?:*/ ""
         set(newName)
         {
             $name = newName

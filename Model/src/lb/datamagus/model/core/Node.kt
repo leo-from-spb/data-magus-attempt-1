@@ -18,6 +18,9 @@ public abstract class Node (nip: NIP)
     public var dropt: Boolean = false
         private set(value) {$dropt = value}
 
+    private val self = this
+
+
 
     // constructor
     {
@@ -33,13 +36,65 @@ public abstract class Node (nip: NIP)
     }
 
 
-
-    //// FAMILY \\\\
-
     open fun children() : List<Node>
     {
         return empty()
     }
+
+
+
+    //// FAMILY CLASS \\\\
+
+    public open class Family<C:Node>(val childClass: Class<C>)
+                    : IndexingList<C>
+    {
+
+        private val children = java.util.ArrayList<C>(16)
+
+        private val constructor = childClass.getConstructors()!![0]!!
+
+
+        internal fun add(child: C)
+        {
+            children.add(child)
+        }
+
+
+        public fun create(init: C.() -> Unit): C
+        {
+            val nip = NIP(model = model, parent = self)
+            val newChild = constructor.newInstance(nip)!! as C
+            children.add(newChild)
+            newChild.init()
+            return newChild
+        }
+
+
+
+        //// LIST DELEGATES \\\\
+
+
+        override val size: Int
+            get() = children.size
+
+        override val first: C
+            get() = children[0]!!
+
+        override val last: C
+            get() = children[children.size()-1]!!
+
+        override fun contains(item: Any): Boolean = children.contains(item)
+
+
+        override fun get(index: Int): C = children.get(index)!!
+
+        override fun indexOf(item: Object): Int = children.indexOf(item)
+
+        public override fun iterator(): Iterator<C> = JavaIteratorView(children.iterator()!!)
+
+    }
+
+
 
 
 }

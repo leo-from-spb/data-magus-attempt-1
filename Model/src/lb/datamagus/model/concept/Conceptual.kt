@@ -7,6 +7,7 @@ import lb.datamagus.model.core.ProjectRoot
 
 public class Conceptual (bip:BIP) : Area (bip)
 {
+    class object {}
 
     public val projectRoot: ProjectRoot? = bip.parent as ProjectRoot
 
