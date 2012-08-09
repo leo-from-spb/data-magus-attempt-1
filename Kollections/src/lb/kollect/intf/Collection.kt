@@ -5,7 +5,6 @@ public trait Collection<out T> : Iterable<T>
 {
 
     val size: Int
-        get() = 0 // ASK how to declare get() abstract?
 
     val isEmpty: Boolean
         get() = size == 0

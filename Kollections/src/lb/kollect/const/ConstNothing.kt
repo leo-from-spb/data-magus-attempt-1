@@ -7,6 +7,10 @@ import lb.kollect.intf.Set
 public class ConstNothing<T> : Set<T>, IndexingList<T>
 {
 
+    override val size: Int = 0
+    override val isNotEmpty: Boolean = false
+    override val isEmpty: Boolean = true
+
     override fun contains(item: Any): Boolean = false
 
     override val first: T
