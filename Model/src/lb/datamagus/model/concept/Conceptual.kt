@@ -1,15 +1,13 @@
 package lb.datamagus.model.concept;
 
-import lb.datamagus.model.core.BIP
-import lb.datamagus.model.core.Bone
-import lb.datamagus.model.core.ProjectRoot
+import lb.datamagus.model.core.*
 
 
-public class Conceptual (bip:BIP) : Area (bip)
+public class Conceptual (nip:NIP) : Area (nip)
 {
     class object {}
 
-    public val projectRoot: ProjectRoot? = bip.parent as ProjectRoot
+    public val projectRoot: ProjectRoot? = nip.parent as ProjectRoot
 
 
 

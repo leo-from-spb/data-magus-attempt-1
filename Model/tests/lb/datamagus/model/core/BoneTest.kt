@@ -9,7 +9,7 @@ import org.testng.Assert
 public class BoneTest
 {
 
-    class TestBone (bip: BIP) : Bone (bip) {}
+    class TestBone (nip: NIP) : Bone (nip) {}
 
     var model = Model()
 
@@ -24,20 +24,12 @@ public class BoneTest
     [Test]
     fun test_init_name()
     {
-        // ASK mixed named and positioned arguments - Confluence says it is allowed
-        // val bone = TestBone(BIP(model, name="White Bone"))
-        val bone = TestBone(BIP(model = model, name="White Bone"))
+        val bone = TestBone(NIP(model = model))
 
-        Assert.assertEquals(bone.name, "White Bone")
+        Assert.assertNotNull(bone.name)
+        Assert.assertTrue(bone.name.length > 0)
     }
 
-    [Test]
-    fun test_init_no_name()
-    {
-        val bone = TestBone(BIP(model = model))
-
-        Assert.assertEquals(bone.name, "")
-    }
 
 
 

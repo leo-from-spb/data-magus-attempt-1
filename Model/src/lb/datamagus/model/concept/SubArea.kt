@@ -1,10 +1,9 @@
 package lb.datamagus.model.concept;
 
-import lb.datamagus.model.core.BIP
-import lb.datamagus.model.core.Bone
+import lb.datamagus.model.core.*
 
 
-public class SubArea (bip:BIP) : Area (bip)
+public class SubArea (nip:NIP) : Area (nip)
 {
 
 

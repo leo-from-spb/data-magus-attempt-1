@@ -2,6 +2,7 @@ package lb.datamagus.model.core;
 
 import lb.kollect.const.*
 import lb.kollect.intf.*
+import lb.kollect.views.*
 
 /**
 * The most abstract class of the model hierarchy.
@@ -100,10 +101,4 @@ public abstract class Node (nip: NIP)
 }
 
 
-public open class NIP
-(
-        public val model:  Model,
-        public val id:     Int = 0,
-        public val parent: Node? = null
-)
 

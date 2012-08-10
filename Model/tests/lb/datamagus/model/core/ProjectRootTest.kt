@@ -8,7 +8,7 @@ import org.testng.Assert
 class ProjectRootTest
 {
 
-    class TestBone (bip: BIP) : Bone (bip) {}
+    class TestBone (nip: NIP) : Bone (nip) {}
 
     var model = Model()
 
@@ -34,8 +34,8 @@ class ProjectRootTest
     [Test]
     fun test_newConceptual()
     {
-        val pr = ProjectRoot(BIP(model))
-        val cm = pr.newConceptual("My Conceptual Model")
+        val pr = ProjectRoot(NIP(model))
+        val cm = pr.conceptuals create { name = "My Conceptual Model" }
 
         Assert.assertTrue(cm in pr.conceptuals)
         Assert.assertEquals(cm.name, "My Conceptual Model")

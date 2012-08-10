@@ -67,7 +67,7 @@ public class Model
     public fun createProjectRoot() : ProjectRoot
     {
         if (projectRoot == null) {
-            val r = ProjectRoot(BIP(model = this, name = "Project"))
+            val r = ProjectRoot(NIP(model = this))
             projectRoot = r
             return r
         }
