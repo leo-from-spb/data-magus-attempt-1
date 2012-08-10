@@ -11,8 +11,7 @@ public class ProjectRoot (nip: NIP) : Bone (nip)
 
     //// CONCEPTUALS \\\\
 
-    public val conceptuals: Family<Conceptual>
-                          = Family<Conceptual>(javaClass<Conceptual>())
+    public val conceptuals: Family<Conceptual> = makeFamily(javaClass<Conceptual>())
 
 
 

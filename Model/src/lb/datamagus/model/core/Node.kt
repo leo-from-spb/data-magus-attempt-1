@@ -19,23 +19,27 @@ public abstract class Node (nip: NIP)
     public var dropt: Boolean = false
         private set(value) {$dropt = value}
 
-    private val self = this
 
 
+    //// INITIALIZATION AND FINALIZATION \\\\
 
     // constructor
     {
         nip.model.registerNode(this)
     }
 
-
     // destructor
-    fun drop()
+    public fun drop()
     {
         model.unregisterNode(this)
         dropt = true
     }
 
+
+    protected fun makeFamily<C:Node>(childClass: Class<C>): Family<C> = Family(childClass)
+
+
+    //// COMMON METHODS \\\\
 
     open fun children() : List<Node>
     {
@@ -63,7 +67,7 @@ public abstract class Node (nip: NIP)
 
         public fun create(init: C.() -> Unit): C
         {
-            val nip = NIP(model = model, parent = self)
+            val nip = NIP(model = model, parent = this@Node)
             val newChild = constructor.newInstance(nip)!! as C
             children.add(newChild)
             newChild.init()

@@ -8,8 +8,6 @@ import org.testng.Assert
 class ProjectRootTest
 {
 
-    class TestBone (nip: NIP) : Bone (nip) {}
-
     var model = Model()
 
 
