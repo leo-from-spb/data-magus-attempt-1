@@ -6,6 +6,8 @@ public class NoSuchNodeException (message: String) : ModelException (message) {}
 
 public class NodeClassMismatchException (message: String) : ModelException (message) {}
 
+public class NoReferencesException (message: String) : ModelException(message) {}
 
+public class AlienNodeException (message: String) : ModelException(message) {}
 
 

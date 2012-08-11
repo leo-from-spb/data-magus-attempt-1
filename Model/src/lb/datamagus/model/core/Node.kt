@@ -3,6 +3,7 @@ package lb.datamagus.model.core;
 import lb.kollect.const.*
 import lb.kollect.intf.*
 import lb.kollect.views.*
+import lb.datamagus.model.core.exceptions.*
 
 /**
 * The most abstract class of the model hierarchy.
@@ -38,6 +39,9 @@ public abstract class Node (nip: NIP)
 
     protected fun makeFamily<C:Node>(childClass: Class<C>): Family<C> = Family(childClass)
 
+    protected fun makeRef<R:Node>(): Ref<R> = Ref<R>()
+
+
 
     //// COMMON METHODS \\\\
 
@@ -45,6 +49,40 @@ public abstract class Node (nip: NIP)
     {
         return empty()
     }
+
+
+    public fun toString(): String
+    {
+        return "${this.javaClass.getSimpleName()}:${id}"
+    }
+
+
+    //// REFERENCES \\\\
+
+    private val refPoints = java.util.HashSet<RefPoint>(16)
+    private val refNodes = java.util.HashSet<Node>(16)
+
+    public val references: Set<Node> = JavaSetView(refNodes)
+
+
+    private fun addRefBy(refPoint: RefPoint)
+    {
+        refPoints.add(refPoint)
+        refNodes.add(refPoint.refBy())
+    }
+
+    private fun removeRefBy(refPoint: RefPoint)
+    {
+        refPoints.remove(refPoint)
+        var stillReferenced = false
+        val refNode = refPoint.refBy()
+        for (p in refPoints)
+            if (p != null && p.refBy() == refNode)
+                { stillReferenced = true; break }
+        if (!stillReferenced)
+            refNodes.remove(refNode)
+    }
+
 
 
 
@@ -100,6 +138,45 @@ public abstract class Node (nip: NIP)
     }
 
 
+    //// REFERENCE CLASSES \\\\
+
+
+    public open class RefPoint()
+    {
+        public fun refBy(): Node = this@Node
+    }
+
+
+    public class Ref<R:Node>() : RefPoint()
+    {
+        var node: R? = null
+            set(newNode)
+            {
+                if (newNode == $node)
+                    return
+                if (newNode != null && newNode.model != this@Node.model)
+                    throw AlienNodeException("Node ${newNode} is from another model")
+
+                val oldNode = $node
+                if (oldNode != null)
+                {
+                    $node = null
+                    oldNode.removeRefBy(this)
+                }
+
+                if (newNode != null)
+                {
+                    $node = newNode
+                    newNode.addRefBy(this)
+                }
+            }
+
+        val id: Int?
+            get() = node?.id
+
+        val exists: Boolean
+            get() = node != null
+    }
 
 
 }

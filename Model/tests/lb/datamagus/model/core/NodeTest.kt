@@ -2,14 +2,23 @@ package lb.datamagus.model.core;
 
 import org.testng.annotations.*
 import org.testng.Assert
+import lb.datamagus.model.core.Node.Ref
+import lb.datamagus.model.core.Node.RefPoint
 
 
 class NodeTest
 {
 
-    class TestNode (nip: NIP) : Node (nip) {}
+    class TestNode (nip: NIP) : Node (nip)
+    {
+        val refA = makeRef<TestNode>()
+        val refB = makeRef<TestNode>()
+    }
+
 
     var model = Model()
+
+
 
 
     [BeforeMethod]
@@ -31,6 +40,9 @@ class NodeTest
     }
 
 
+    //// BASIC TESTS \\\\
+
+
     [Test]
     fun test_init_register()
     {
@@ -40,8 +52,6 @@ class NodeTest
 
         Assert.assertEquals(model.countNodes, 1)
 
-        // ASK
-        // val x = model node<TestNode> node.id
         val x = model.node<TestNode>(node.id)
 
         Assert.assertSame(x, node)
@@ -70,6 +80,84 @@ class NodeTest
         node.drop()
 
         Assert.assertFalse(model hasNode id)
+    }
+
+
+    //// REF TESTS \\\\
+
+    [Test]
+    fun test_Ref_1()
+    {
+        val x = TestNode(NIP(model))
+        val y = TestNode(NIP(model))
+        val z = TestNode(NIP(model))
+
+        Assert.assertNull(x.refA.node)
+
+        x.refA.node = y
+
+        Assert.assertEquals(x.refA.node, y)
+
+        x.refA.node = z
+
+        Assert.assertEquals(x.refA.node, z)
+
+        x.refA.node = null;
+
+        Assert.assertNull(x.refA.node)
+    }
+
+
+    [Test]
+    fun test_Ref_references()
+    {
+        val x = TestNode(NIP(model))
+        val y = TestNode(NIP(model))
+        val z = TestNode(NIP(model))
+
+        Assert.assertFalse(x in y.references)
+        Assert.assertFalse(x in z.references)
+
+        x.refA.node = y
+
+        Assert.assertTrue(x in y.references)
+        Assert.assertFalse(x in z.references)
+
+        x.refA.node = z
+
+        Assert.assertFalse(x in y.references)
+        Assert.assertTrue(x in z.references)
+
+        x.refA.node = null;
+
+        Assert.assertFalse(x in y.references)
+        Assert.assertFalse(x in z.references)
+    }
+
+
+    [Test]
+    fun test_Ref_references_2times()
+    {
+        val x = TestNode(NIP(model))
+        val y = TestNode(NIP(model))
+
+        Assert.assertFalse(y in x.references)
+
+        x.refA.node = y
+
+        Assert.assertTrue(x in y.references)
+
+        x.refB.node = y // another ref to the same node
+
+        Assert.assertTrue(x in y.references)
+
+        x.refA.node = null;  // B still references
+
+        Assert.assertTrue(x in y.references)
+
+        x.refB.node = null;  // B still references
+
+        Assert.assertFalse(x in y.references)
     }
 
 
