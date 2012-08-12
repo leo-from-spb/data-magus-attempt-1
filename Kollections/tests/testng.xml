@@ -8,6 +8,7 @@
 
             <class name="lb.kollect.const.ConstListTest"/>
             <class name="lb.kollect.views.JoinViewTest"/>
+            <class name="lb.kollect.containers.ArrListTest"/>
 
         </classes>
     </test>

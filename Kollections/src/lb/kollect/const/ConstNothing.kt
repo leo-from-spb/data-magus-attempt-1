@@ -26,7 +26,7 @@ public class ConstNothing<T> : Set<T>, IndexingList<T>
     }
 
 
-    override fun indexOf(item: Object): Int = -1
+    override fun indexOf(item: Any): Int = -1
 
 
     public override fun iterator(): Iterator<T> = ZeroIterator()

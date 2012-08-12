@@ -121,5 +121,32 @@ class ConstListTest
         Assert.assertEquals(list3[2], "balalaika")
     }
 
+
+    [Test]
+    fun test_equals_0()
+    {
+        val listA = listOf<String>()
+        val listB = listOf<String>()
+        Assert.assertTrue(listA equals listB)
+    }
+
+    [Test]
+    fun test_equals_1()
+    {
+        val listA = listOf<String>("10")
+        val listB = listOf<String>("1"+"0")
+        Assert.assertTrue(listA equals listB)
+    }
+
+    [Test]
+    fun test_equals_3()
+    {
+        val listA = listOf<String>("11","12","13")
+        val listB = listOf<String>("11","12","13")
+        Assert.assertTrue(listA equals listB)
+    }
+
+
+
 }
 

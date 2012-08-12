@@ -22,7 +22,7 @@ public class JavaListView<T> (private val jList: java.util.List<T>)
         return jList.get(index)!!
     }
 
-    override fun indexOf(item: Object): Int
+    override fun indexOf(item: Any): Int
     {
         return jList.indexOf(item)
     }

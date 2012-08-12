@@ -8,7 +8,7 @@ public trait IndexingList<out T>: List<T>
     fun get(index: Int): T
 
 
-    open fun indexOf(item: Object): Int
+    open fun indexOf(item: Any): Int
 
 
 }

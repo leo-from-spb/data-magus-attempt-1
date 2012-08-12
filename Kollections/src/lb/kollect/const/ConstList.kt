@@ -3,8 +3,8 @@ package lb.kollect.const;
 import lb.kollect.intf.*
 
 
-public class ConstList<T> internal (items: Array<T>)
-          :  ConstCollection<T> (items),
+public class ConstList<T> internal (items: Array<T>, count: Int)
+          :  ConstCollection<T> (items, count),
              IndexingList<T>,
              List<T>
 {
@@ -26,7 +26,7 @@ public class ConstList<T> internal (items: Array<T>)
     override fun get(index: Int): T = items[index]
 
 
-    override fun indexOf(item: Object): Int
+    override fun indexOf(item: Any): Int
     {
         for (i in items.indices)
             if (items[i] == item)
@@ -37,16 +37,16 @@ public class ConstList<T> internal (items: Array<T>)
 
     public fun plus(item: T): ConstList<T>
     {
-        val n = size
+        val n = count
         if (n == 0) {
-            return ConstList(array<T>(item))
+            return ConstList(array<T>(item), 1)
         }
         else if (n == 1) {
-            return ConstList(array<T>(items[0], item))
+            return ConstList(array<T>(items[0], item), 2)
         }
         else {
             val newItems = Array<T>(n+1, {i -> if (i == n) item else items[i]})
-            return ConstList(newItems)
+            return ConstList(newItems, n+1)
         }
     }
 
