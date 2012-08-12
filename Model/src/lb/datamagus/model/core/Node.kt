@@ -38,8 +38,8 @@ public abstract class Node (nip: NIP)
 
 
     protected fun makeFamily<C:Node>(childClass: Class<C>): Family<C> = Family(childClass)
-
     protected fun makeRef<R:Node>(): Ref<R> = Ref<R>()
+    protected fun makeRefs<R:Node>(): Refs<R> = Refs<R>()
 
 
 
@@ -131,7 +131,7 @@ public abstract class Node (nip: NIP)
 
         override fun get(index: Int): C = children.get(index)!!
 
-        override fun indexOf(item: Object): Int = children.indexOf(item)
+        override fun indexOf(item: Any): Int = children.indexOf(item)
 
         public override fun iterator(): Iterator<C> = JavaIteratorView(children.iterator()!!)
 
@@ -149,7 +149,7 @@ public abstract class Node (nip: NIP)
 
     public class Ref<R:Node>() : RefPoint()
     {
-        var node: R? = null
+        public var node: R? = null
             set(newNode)
             {
                 if (newNode == $node)
@@ -171,12 +171,27 @@ public abstract class Node (nip: NIP)
                 }
             }
 
-        val id: Int?
+        public val id: Int?
             get() = node?.id
 
-        val exists: Boolean
+        public val exists: Boolean
             get() = node != null
     }
+
+
+    public class Refs<R:Node>() : RefPoint()
+    {
+        public var nodes: ConstList<R> = emptyList()
+            set(newNodes)
+            {
+                val d = diff(nodes, newNodes)
+                for (x in d.a)
+                    x.removeRefBy(this)
+                for (x in d.b)
+                    x.addRefBy(this)
+            }
+    }
+
 
 
 }

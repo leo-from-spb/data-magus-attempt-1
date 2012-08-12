@@ -11,6 +11,7 @@
             <class name="lb.datamagus.model.core.ProjectRootTest"/>
 
             <class name="lb.datamagus.model.concept.EntityTest"/>
+            <class name="lb.datamagus.model.concept.AttributeTest"/>
 
         </classes>
     </test>
