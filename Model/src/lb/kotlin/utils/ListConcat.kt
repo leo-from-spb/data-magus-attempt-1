@@ -116,7 +116,7 @@ public class ListConcat<out T> internal (lists: Array<List<T>>) : List<T>
 
     public override fun equals(that: Any?): Boolean // ASK нафига требуется переопределять?
     {
-        return this == that
+        return this identityEquals that
     }
 
 

@@ -164,7 +164,7 @@ public abstract class Node (nip: NIP)
 
 
         public override fun equals(that: Any?): Boolean {
-            return this == that
+            return this identityEquals that
         }
 
         public override fun hashCode(): Int {
