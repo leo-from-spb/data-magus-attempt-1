@@ -1,10 +1,8 @@
-package lb.datamagus.model.concept;
+package lb.datamagus.model.concept
 
 import lb.datamagus.model.core.*
 import lb.datamagus.model.core.Node.Family
-import lb.kollect.intf.List
-import lb.kollect.views.JoinView
-import lb.kollect.views.join
+import lb.kotlin.utils.ListConcat
 
 
 public abstract class Area (nip:NIP) : Bone (nip)
@@ -30,7 +28,7 @@ public abstract class Area (nip:NIP) : Bone (nip)
 
     override fun children(): List<Node>
     {
-        return join(subAreas, domains, entities)
+        return ListConcat(array<List<Node>>(subAreas, domains, entities))
     }
 }
 
