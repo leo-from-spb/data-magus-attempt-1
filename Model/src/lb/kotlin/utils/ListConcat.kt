@@ -2,6 +2,7 @@ package lb.kotlin.utils
 
 import java.util.Arrays
 import com.google.common.collect.ImmutableList
+import sun.security.jca.GetInstance
 
 /**
  * Join view.
@@ -63,13 +64,12 @@ public class ListConcat<out T> internal (lists: Array<List<T>>) : List<T>
     }
 
 
-    public override fun <T> toArray(a: Array<out T>): Array<T>
+    public override fun <TT> toArray(a: Array<out TT>): Array<TT>
     {
+        // ASK how to ensure that T is TT
         val b = ImmutableList.builder<T>()!!
         for (list in innerLists)
-//            b.addAll(list) // ASK WTF???
-            for (item in list)
-                b.add(item)
+            b.addAll(list)
         return b.build()!!.toArray(a)
     }
 
