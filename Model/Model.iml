@@ -8,8 +8,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="kotlin-lib" level="application" />
-    <orderEntry type="module" module-name="Kollections" />
+    <orderEntry type="library" exported="" name="kotlin-runtime" level="application" />
     <orderEntry type="library" exported="" name="guava" level="project" />
     <orderEntry type="library" scope="TEST" name="testng" level="project" />
   </component>

@@ -1,9 +1,8 @@
 package lb.datamagus.model.core;
 
-import lb.kollect.const.*
-import lb.kollect.intf.*
-import lb.kollect.views.*
 import lb.datamagus.model.core.exceptions.*
+import lb.kotlin.utils.emptyList
+import com.google.common.collect.ImmutableList
 
 /**
 * The most abstract class of the model hierarchy.
@@ -47,7 +46,7 @@ public abstract class Node (nip: NIP)
 
     open fun children() : List<Node>
     {
-        return empty()
+        return emptyList()
     }
 
 
@@ -62,7 +61,7 @@ public abstract class Node (nip: NIP)
     private val refPoints = java.util.HashSet<RefPoint>(16)
     private val refNodes = java.util.HashSet<Node>(16)
 
-    public val references: Set<Node> = JavaSetView(refNodes)
+    public val references: Set<Node> = refNodes
 
 
     private fun addRefBy(refPoint: RefPoint)
@@ -77,7 +76,7 @@ public abstract class Node (nip: NIP)
         var stillReferenced = false
         val refNode = refPoint.refBy()
         for (p in refPoints)
-            if (p != null && p.refBy() == refNode)
+            if (p.refBy() == refNode)
                 { stillReferenced = true; break }
         if (!stillReferenced)
             refNodes.remove(refNode)
@@ -89,7 +88,7 @@ public abstract class Node (nip: NIP)
     //// FAMILY CLASS \\\\
 
     public open class Family<C:Node>(val childClass: Class<C>)
-                    : IndexingList<C>
+                    : List<C>
     {
 
         private val children = java.util.ArrayList<C>(16)
@@ -117,24 +116,60 @@ public abstract class Node (nip: NIP)
         //// LIST DELEGATES \\\\
 
 
-        override val size: Int
-            get() = children.size
-
-        override val first: C
-            get() = children[0]!!
-
-        override val last: C
-            get() = children[children.size()-1]!!
-
-        override fun contains(item: Any): Boolean = children.contains(item)
+        override fun size(): Int
+        {
+            return children.size
+        }
 
 
-        override fun get(index: Int): C = children.get(index)!!
+        override fun contains(o: Any?): Boolean = children.contains(o)
 
-        override fun indexOf(item: Any): Int = children.indexOf(item)
 
-        public override fun iterator(): Iterator<C> = JavaIteratorView(children.iterator()!!)
+        override fun get(index: Int): C = children.get(index)
 
+        override fun indexOf(item: Any?): Int = children.indexOf(item)
+
+
+        public override fun iterator(): Iterator<C>
+        {
+            throw RuntimeException("Not implemented yet")
+        }
+
+
+        public override fun isEmpty(): Boolean {
+            throw UnsupportedOperationException()
+        }
+
+        public override fun toArray(): Array<Any?> {
+            throw UnsupportedOperationException()
+        }
+        public override fun <T> toArray(a: Array<out T>): Array<T> {
+            throw UnsupportedOperationException()
+        }
+        public override fun containsAll(c: Collection<Any?>): Boolean {
+            throw UnsupportedOperationException()
+        }
+        public override fun lastIndexOf(o: Any?): Int {
+            throw UnsupportedOperationException()
+        }
+        public override fun listIterator(): ListIterator<C> {
+            throw UnsupportedOperationException()
+        }
+        public override fun listIterator(index: Int): ListIterator<C> {
+            throw UnsupportedOperationException()
+        }
+        public override fun subList(fromIndex: Int, toIndex: Int): List<C> {
+            throw UnsupportedOperationException()
+        }
+
+
+        public override fun equals(that: Any?): Boolean {
+            return this identityEquals that
+        }
+
+        public override fun hashCode(): Int {
+            return children.hashCode()
+        }
     }
 
 
@@ -181,14 +216,17 @@ public abstract class Node (nip: NIP)
 
     public class Refs<R:Node>() : RefPoint()
     {
-        public var nodes: ConstList<R> = emptyList()
+        public var nodes: List<R> = emptyList()
             set(newNodes)
             {
+                nodes = ImmutableList.copyOf(newNodes)!!
+/*
                 val d = diff(nodes, newNodes)
                 for (x in d.a)
                     x.removeRefBy(this)
                 for (x in d.b)
                     x.addRefBy(this)
+*/
             }
     }
 

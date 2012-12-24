@@ -1,4 +1,4 @@
-package lb.datamagus.model.core;
+package lb.datamagus.model.core
 
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.HashMap
@@ -6,7 +6,6 @@ import lb.datamagus.model.core.exceptions.NoSuchNodeException
 import lb.datamagus.model.core.exceptions.NodeClassMismatchException
 import com.google.common.collect.ImmutableCollection
 import com.google.common.collect.ImmutableList
-import java.util.Collection
 
 
 public class Model
@@ -50,7 +49,7 @@ public class Model
     {
         val x = allNodes[id]
         when (x) {
-            is null -> throw NoSuchNodeException("Node ${id} not found")
+            null -> throw NoSuchNodeException("Node ${id} not found")
             is N -> return x
             //ASK
             //else -> throw NodeClassMismatchException("Requested node ${id} of class ${T.javaClass.getSimpleName()} but this node is ${x.javaClass.getSimpleName()}")
@@ -60,7 +59,7 @@ public class Model
 
     public fun hasNode(id: Int): Boolean = allNodes.containsKey(id)
 
-    public fun viewAllNodes() : Collection<Node> = allNodes.values()!!
+    public fun viewAllNodes() : Collection<Node> = allNodes.values()
 
 
 
@@ -96,10 +95,10 @@ public class Model
     {
         // ASK how to create an empty array for the specified type of items ?
         // val nodes = allNodes.values().toArray(Array<Node>(n))
-        val nodes = ImmutableList.copyOf(allNodes.values())
+        val nodes = ImmutableList.copyOf(allNodes.values())!!
         allNodes.clear()
-        for (node in nodes)
-            if (node != null && !node.dropt)
+        for (node in nodes.iterator()!!)
+            if (!node.dropt)
                 node.drop()
     }
 

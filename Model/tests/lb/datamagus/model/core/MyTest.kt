@@ -22,6 +22,7 @@ public abstract class A
 
 class MyTest
 {
+/*
     class B: A()
     {
 
@@ -36,4 +37,5 @@ class MyTest
         val b = B()
         Assert.assertNotNull(b)
     }
+*/
 }
