@@ -97,7 +97,7 @@ public class Model
         // val nodes = allNodes.values().toArray(Array<Node>(n))
         val nodes = ImmutableList.copyOf(allNodes.values())!!
         allNodes.clear()
-        for (node in nodes.iterator()!!)
+        for (node in nodes.iterator())
             if (!node.dropt)
                 node.drop()
     }
