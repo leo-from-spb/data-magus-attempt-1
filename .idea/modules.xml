@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/DB-Abstract/DB-Abstract.iml" filepath="$PROJECT_DIR$/DB-Abstract/DB-Abstract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DB-Oracle/DB-Oracle.iml" filepath="$PROJECT_DIR$/DB-Oracle/DB-Oracle.iml" />
       <module fileurl="file://$PROJECT_DIR$/Model/Model.iml" filepath="$PROJECT_DIR$/Model/Model.iml" />
     </modules>
   </component>
