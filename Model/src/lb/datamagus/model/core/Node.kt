@@ -1,8 +1,8 @@
 package lb.datamagus.model.core;
 
+import com.google.common.collect.ImmutableList
 import lb.datamagus.model.core.exceptions.*
 import lb.kotlin.utils.emptyList
-import com.google.common.collect.ImmutableList
 
 /**
 * The most abstract class of the model hierarchy.
@@ -93,7 +93,7 @@ public abstract class Node (nip: NIP)
 
         private val children = java.util.ArrayList<C>(16)
 
-        private val constructor = childClass.getConstructors()!![0]!!
+        private val constructor = childClass.getConstructors()[0]
 
 
         internal fun add(child: C)
