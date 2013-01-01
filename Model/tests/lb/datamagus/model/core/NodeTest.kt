@@ -1,10 +1,7 @@
 package lb.datamagus.model.core;
 
+import lb.testutils.*
 import org.testng.annotations.*
-import org.testng.Assert
-import lb.datamagus.model.core.Node.Ref
-import lb.datamagus.model.core.Node.RefPoint
-
 
 class NodeTest
 {
@@ -33,10 +30,11 @@ class NodeTest
     {
         val node = TestNode(NIP(model))
 
-        Assert.assertEquals(node.model, model)
-        Assert.assertTrue(node.id >= 1)
-        Assert.assertNull(node.parent)
-        Assert.assertFalse(node.dropt)
+        node.model _same_as_ model
+
+        node.id _greater_or_equal_ 1
+        node.parent._null_()
+        node.dropt._false_()
     }
 
 
@@ -46,15 +44,15 @@ class NodeTest
     [Test]
     fun test_init_register()
     {
-        Assert.assertEquals(model.countNodes, 0)
+        model.countNodes _equals_ 0
 
         val node = TestNode(NIP(model))
 
-        Assert.assertEquals(model.countNodes, 1)
+        model.countNodes _equals_ 1
 
         val x = model.node<TestNode>(node.id)
 
-        Assert.assertSame(x, node)
+        x _same_as_ node
     }
 
 
@@ -63,11 +61,11 @@ class NodeTest
     {
         val node = TestNode(NIP(model))
 
-        Assert.assertFalse(node.dropt)
+        node.dropt ._false_()
 
         node.drop()
 
-        Assert.assertTrue(node.dropt)
+        node.dropt ._true_()
     }
 
 
@@ -79,7 +77,7 @@ class NodeTest
 
         node.drop()
 
-        Assert.assertFalse(model hasNode id)
+        (model hasNode id)  ._false_()
     }
 
 
@@ -92,19 +90,19 @@ class NodeTest
         val y = TestNode(NIP(model))
         val z = TestNode(NIP(model))
 
-        Assert.assertNull(x.refA.node)
+        x.refA.node ._null_()
 
         x.refA.node = y
 
-        Assert.assertEquals(x.refA.node, y)
+        x.refA.node _same_as_ y
 
         x.refA.node = z
 
-        Assert.assertEquals(x.refA.node, z)
+        x.refA.node _same_as_ z
 
-        x.refA.node = null;
+        x.refA.node = null
 
-        Assert.assertNull(x.refA.node)
+        x.refA.node ._null_()
     }
 
 
@@ -115,23 +113,23 @@ class NodeTest
         val y = TestNode(NIP(model))
         val z = TestNode(NIP(model))
 
-        Assert.assertFalse(x in y.references)
-        Assert.assertFalse(x in z.references)
+        x _not_in_ y.references
+        x _not_in_ z.references
 
         x.refA.node = y
 
-        Assert.assertTrue(x in y.references)
-        Assert.assertFalse(x in z.references)
+        x _in_ y.references
+        x _not_in_ z.references
 
         x.refA.node = z
 
-        Assert.assertFalse(x in y.references)
-        Assert.assertTrue(x in z.references)
+        x _not_in_ y.references
+        x _in_ z.references
 
         x.refA.node = null;
 
-        Assert.assertFalse(x in y.references)
-        Assert.assertFalse(x in z.references)
+        x _not_in_ y.references
+        x _not_in_ z.references
     }
 
 
@@ -141,23 +139,23 @@ class NodeTest
         val x = TestNode(NIP(model))
         val y = TestNode(NIP(model))
 
-        Assert.assertFalse(y in x.references)
+        x _not_in_ y.references
 
         x.refA.node = y
 
-        Assert.assertTrue(x in y.references)
+        x _in_ y.references
 
         x.refB.node = y // another ref to the same node
 
-        Assert.assertTrue(x in y.references)
+        x _in_ y.references
 
         x.refA.node = null;  // B still references
 
-        Assert.assertTrue(x in y.references)
+        x _in_ y.references
 
         x.refB.node = null;  // B still references
 
-        Assert.assertFalse(x in y.references)
+        x _not_in_ y.references
     }
 
 

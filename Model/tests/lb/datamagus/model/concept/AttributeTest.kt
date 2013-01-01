@@ -1,11 +1,8 @@
 package lb.datamagus.model.concept;
 
-import org.testng.annotations.*
-import org.testng.Assert
-import lb.datamagus.model.core.Node.Ref
-import lb.datamagus.model.core.Node.RefPoint
 import lb.datamagus.model.core.Model
-
+import lb.testutils.*
+import org.testng.annotations.*
 
 class AttributeTest
 {
@@ -37,9 +34,9 @@ class AttributeTest
 
         a1.domain.node = domA
 
-        Assert.assertSame(a1.domain.node, domA)
+        a1.domain.node _same_as_ domA
 
-        Assert.assertTrue(a1 in domA.references)
+        a1 _in_ domA.references
     }
 
 

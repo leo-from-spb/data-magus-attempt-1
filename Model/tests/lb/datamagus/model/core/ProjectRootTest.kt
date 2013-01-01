@@ -1,9 +1,7 @@
 package lb.datamagus.model.core;
 
-
+import lb.testutils.*
 import org.testng.annotations.*
-import org.testng.Assert
-
 
 class ProjectRootTest
 {
@@ -24,8 +22,8 @@ class ProjectRootTest
         val r1 = model.createProjectRoot()
         val r2 = model.getProjectRoot()
 
-        Assert.assertSame(r2, r1)
-        Assert.assertTrue(r1 in model.viewAllNodes())
+        r2 _same_as_ r1
+        r1 _in_ model.viewAllNodes()
     }
 
 
@@ -35,8 +33,8 @@ class ProjectRootTest
         val pr = ProjectRoot(NIP(model))
         val cm = pr.conceptuals create { name = "My Conceptual Model" }
 
-        Assert.assertTrue(cm in pr.conceptuals)
-        Assert.assertEquals(cm.name, "My Conceptual Model")
+        cm _in_ pr.conceptuals
+        cm.name _equals_ "My Conceptual Model"
     }
 
 

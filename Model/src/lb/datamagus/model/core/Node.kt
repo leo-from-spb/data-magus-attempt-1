@@ -136,9 +136,7 @@ public abstract class Node (nip: NIP)
         }
 
 
-        public override fun isEmpty(): Boolean {
-            throw UnsupportedOperationException()
-        }
+        public override fun isEmpty() = children.isEmpty()
 
         public override fun toArray(): Array<Any?> {
             throw UnsupportedOperationException()
