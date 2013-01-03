@@ -1,12 +1,13 @@
 package lb.datamagus.model.core
 
-import java.util.concurrent.atomic.AtomicInteger
+import com.google.common.collect.ImmutableList
 import java.util.HashMap
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.locks.ReentrantReadWriteLock
+import kotlin.concurrent.read
+import kotlin.concurrent.write
 import lb.datamagus.model.core.exceptions.NoSuchNodeException
 import lb.datamagus.model.core.exceptions.NodeClassMismatchException
-import com.google.common.collect.ImmutableCollection
-import com.google.common.collect.ImmutableList
-
 
 public class Model
 {
@@ -39,6 +40,61 @@ public class Model
     }
 
 
+    //// ACCESS AND CONCURRENCY \\\\
+
+    /**
+     * Lock the model.
+     * All read and writes must be inside the lock.
+     **/
+    private val mainLock = ReentrantReadWriteLock()
+
+    private var writingThreadId: Long = 0;
+
+
+    public inline fun<T> read ( action: (Model)->T )
+    {
+        mainLock.read<T>() {
+            action(this@Model)
+        }
+    }
+
+
+    public fun<T> modify ( remark: String, action: (Model)->T ) : T
+    {
+        return mainLock.write<T>() {
+            val currentThreadId = Thread.currentThread().getId();
+            if (writingThreadId == currentThreadId) {
+                // nested invocation, already acquired
+                action(this@Model)
+            }
+            else {
+                // first invocation
+                writingThreadId = currentThreadId
+                try {
+                    action(this@Model)
+                }
+                finally {
+                    writingThreadId = 0:Long
+                }
+            }
+        }
+    }
+
+
+    public fun modification (node: Node)
+    {
+        // check access first
+        if (writingThreadId == 0:Long)
+            throw IllegalThreadStateException("Attempted to modify node ($node) without write ticket. No write ticket acquired.")
+        val currentThreadId = Thread.currentThread().getId()
+        if (currentThreadId != writingThreadId)
+            throw IllegalThreadStateException("Attempted to modify node ($node) without write ticket. The write ticket acqired by thread $writingThreadId but current thread is $currentThreadId.");
+
+        // add this node to the change list
+        // TODO
+    }
+
+
 
     //// PUBLIC UTILITY FUNCTIONS \\\\
 
@@ -66,9 +122,12 @@ public class Model
     public fun createProjectRoot() : ProjectRoot
     {
         if (projectRoot == null) {
-            val r = ProjectRoot(NIP(model = this))
-            projectRoot = r
-            return r
+            return modify("Creating the project root") {
+                       val m = this@Model;
+                       val r = ProjectRoot(NIP(model = m))
+                       projectRoot = r
+                       r
+            }
         }
         else {
             throw IllegalStateException("The project root already exists.")

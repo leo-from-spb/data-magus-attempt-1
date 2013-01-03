@@ -25,12 +25,14 @@ public abstract class Node (nip: NIP)
 
     // constructor
     {
+        nip.model.modification(this)
         nip.model.registerNode(this)
     }
 
     // destructor
     public fun drop()
     {
+        model.modification(this)
         model.unregisterNode(this)
         dropt = true
     }
@@ -66,12 +68,14 @@ public abstract class Node (nip: NIP)
 
     private fun addRefBy(refPoint: RefPoint)
     {
+        model.modification(this)
         refPoints.add(refPoint)
         refNodes.add(refPoint.refBy())
     }
 
     private fun removeRefBy(refPoint: RefPoint)
     {
+        model.modification(this)
         refPoints.remove(refPoint)
         var stillReferenced = false
         val refNode = refPoint.refBy()
@@ -98,12 +102,14 @@ public abstract class Node (nip: NIP)
 
         internal fun add(child: C)
         {
+            model.modification(this@Node)
             children.add(child)
         }
 
 
         public fun create(init: C.() -> Unit): C
         {
+            model.modification(this@Node)
             val nip = NIP(model = model, parent = this@Node)
             val newChild = constructor.newInstance(nip)!! as C
             children.add(newChild)
@@ -189,6 +195,7 @@ public abstract class Node (nip: NIP)
                     return
                 if (newNode != null && newNode.model != this@Node.model)
                     throw AlienNodeException("Node ${newNode} is from another model")
+                model.modification(this@Node)
 
                 val oldNode = $node
                 if (oldNode != null)
@@ -217,6 +224,7 @@ public abstract class Node (nip: NIP)
         public var nodes: List<R> = emptyList()
             set(newNodes)
             {
+                model.modification(this@Node)
                 nodes = ImmutableList.copyOf(newNodes)!!
 /*
                 val d = diff(nodes, newNodes)

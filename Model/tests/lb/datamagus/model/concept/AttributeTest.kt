@@ -8,20 +8,19 @@ class AttributeTest
 {
 
     var model = Model()
-    var projectRoot = model.createProjectRoot()
-    var conceptual = projectRoot.conceptuals create {}
-    var e1 = conceptual.entities create {name = "Entity 1"}
-    var e2 = conceptual.entities create {name = "Entity 2"}
 
 
     [BeforeMethod]
     fun beforeMethod()
     {
-        model = Model()  // instead of cleanup
-        projectRoot = model.createProjectRoot()
-        conceptual = projectRoot.conceptuals create {}
-        e1 = conceptual.entities create {name = "Entity 1"}
-        e2 = conceptual.entities create {name = "Entity 2"}
+        val m = Model()  // instead of cleanup
+        m.modify("Init model") {
+            val projectRoot = m.createProjectRoot()
+            val conceptual = projectRoot.conceptuals create {}
+            conceptual.entities create {name = "Entity 1"}
+            conceptual.entities create {name = "Entity 2"}
+        }
+        this.model = m
     }
 
 
@@ -29,14 +28,18 @@ class AttributeTest
     [Test]
     fun test_domain_ref()
     {
-        val domA = conceptual.domains create {name = "Domain A"}
-        val a1 = e1.attributes create {name = "Attr 1"}
+        model.modify("Test") {
+            val conceptual = model.getProjectRoot().conceptuals.first!!
+            val domA = conceptual.domains create {name = "Domain A"}
+            val entity1 = conceptual.entities.first!!
+            val a1 = entity1.attributes create {name = "Attr 1"}
 
-        a1.domain.node = domA
+            a1.domain.node = domA
 
-        a1.domain.node _same_as_ domA
+            a1.domain.node _same_as_ domA
 
-        a1 _in_ domA.references
+            a1 _in_ domA.references
+        }
     }
 
 

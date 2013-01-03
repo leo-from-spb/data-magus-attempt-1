@@ -21,10 +21,11 @@ class BoneTest
     [Test]
     fun test_init_name()
     {
-        val bone = TestBone(NIP(model = model))
-
-        bone.name._not_null_()
-        bone.name.length _greater_ 0
+        model.modify("Test") {
+            val bone = TestBone(NIP(model = model))
+            bone.name._not_null_()
+            bone.name.length _greater_ 0
+        }
     }
 
 
