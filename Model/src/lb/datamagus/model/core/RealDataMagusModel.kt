@@ -9,7 +9,10 @@ import kotlin.concurrent.write
 import lb.datamagus.model.core.exceptions.NoSuchNodeException
 import lb.datamagus.model.core.exceptions.NodeClassMismatchException
 
-public class Model
+/**
+ * Main model implementation.
+ **/
+internal class RealDataMagusModel : WorkModel, IntModel, ModModel
 {
 
     //// INTERNAL STATE \\\\
@@ -26,18 +29,20 @@ public class Model
     //// INTERNAL PROTOCOL PROCEDURES \\\
 
 
-    fun takeNewId() : Int =  idSequence.incrementAndGet()
+    override fun takeNewId() : Int =  idSequence.incrementAndGet()
 
 
-    fun registerNode(node: Node)
+    override fun registerNode(node: Node)
     {
         allNodes.put(node.id, node)
     }
 
-    fun unregisterNode(node: Node)
+    override fun unregisterNode(node: Node)
     {
         allNodes.remove(node.id)
     }
+
+    override fun asIntModel(): IntModel = this
 
 
     //// ACCESS AND CONCURRENCY \\\\
@@ -51,27 +56,27 @@ public class Model
     private var writingThreadId: Long = 0;
 
 
-    public inline fun<T> read ( action: (Model)->T )
+    public override fun<T> read ( action: (AccModel)->T ) : T
     {
-        mainLock.read<T>() {
-            action(this@Model)
+        return mainLock.read<T>() {
+            action(this@RealDataMagusModel)
         }
     }
 
 
-    public fun<T> modify ( remark: String, action: (Model)->T ) : T
+    public override fun<T> modify ( remark: String, action: (ModModel)->T ) : T
     {
         return mainLock.write<T>() {
             val currentThreadId = Thread.currentThread().getId();
             if (writingThreadId == currentThreadId) {
                 // nested invocation, already acquired
-                action(this@Model)
+                action(this@RealDataMagusModel)
             }
             else {
                 // first invocation
                 writingThreadId = currentThreadId
                 try {
-                    action(this@Model)
+                    action(this@RealDataMagusModel)
                 }
                 finally {
                     writingThreadId = 0:Long
@@ -81,7 +86,7 @@ public class Model
     }
 
 
-    public fun modification (node: Node)
+    public override fun modification (node: Node)
     {
         // check access first
         if (writingThreadId == 0:Long)
@@ -98,32 +103,32 @@ public class Model
 
     //// PUBLIC UTILITY FUNCTIONS \\\\
 
-    public val countNodes: Int
+    public override val countNodes: Int
            get() = allNodes.size
 
-    public fun node<N:Node>(id: Int): N
+    public override fun<N:Node> node(id: Int): N
     {
         val x = allNodes[id]
         when (x) {
             null -> throw NoSuchNodeException("Node ${id} not found")
             is N -> return x
-            //ASK
+            //ASK WTF
             //else -> throw NodeClassMismatchException("Requested node ${id} of class ${T.javaClass.getSimpleName()} but this node is ${x.javaClass.getSimpleName()}")
             else -> throw NodeClassMismatchException("Requested node ${id}: type mismatch")
         }
     }
 
-    public fun hasNode(id: Int): Boolean = allNodes.containsKey(id)
+    public override fun hasNode(id: Int): Boolean = allNodes.containsKey(id)
 
-    public fun viewAllNodes() : Collection<Node> = allNodes.values()
+    public override fun viewAllNodes() : Collection<Node> = allNodes.values()
 
 
 
-    public fun createProjectRoot() : ProjectRoot
+    public override fun createProjectRoot() : ProjectRoot
     {
         if (projectRoot == null) {
             return modify("Creating the project root") {
-                       val m = this@Model;
+                       val m = this@RealDataMagusModel;
                        val r = ProjectRoot(NIP(model = m))
                        projectRoot = r
                        r
@@ -135,7 +140,7 @@ public class Model
 
     }
 
-    public fun getProjectRoot() : ProjectRoot
+    public override fun getProjectRoot() : ProjectRoot
     {
         val r = projectRoot  // ASK how to simplify
         if (r != null)
@@ -150,7 +155,7 @@ public class Model
 
     //// CLEANUP PROCEDURES \\\\
 
-    public fun removeAllNodes()
+    public override fun dropAllNodes()
     {
         // ASK how to create an empty array for the specified type of items ?
         // val nodes = allNodes.values().toArray(Array<Node>(n))

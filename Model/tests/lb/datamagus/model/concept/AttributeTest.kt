@@ -1,26 +1,21 @@
 package lb.datamagus.model.concept;
 
-import lb.datamagus.model.core.Model
+import lb.datamagus.model.core.*
 import lb.testutils.*
 import org.testng.annotations.*
 
-class AttributeTest
+class AttributeTest : BaseModelTestCase()
 {
 
-    var model = Model()
-
-
     [BeforeMethod]
-    fun beforeMethod()
+    override fun beforeMethod()
     {
-        val m = Model()  // instead of cleanup
-        m.modify("Init model") {
-            val projectRoot = m.createProjectRoot()
+        model.modify("Init model") {
+            val projectRoot = it.createProjectRoot()
             val conceptual = projectRoot.conceptuals create {}
             conceptual.entities create {name = "Entity 1"}
             conceptual.entities create {name = "Entity 2"}
         }
-        this.model = m
     }
 
 
@@ -29,7 +24,7 @@ class AttributeTest
     fun test_domain_ref()
     {
         model.modify("Test") {
-            val conceptual = model.getProjectRoot().conceptuals.first!!
+            val conceptual = it.getProjectRoot().conceptuals.first!!
             val domA = conceptual.domains create {name = "Domain A"}
             val entity1 = conceptual.entities.first!!
             val a1 = entity1.attributes create {name = "Attr 1"}

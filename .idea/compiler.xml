@@ -3,7 +3,6 @@
   <component name="CompilerConfiguration">
     <option name="DEFAULT_COMPILER" value="Javac" />
     <excludeFromCompile>
-      <file url="file://$PROJECT_DIR$/Model/src/lb/datamagus/model/core/Model.kt" />
     </excludeFromCompile>
     <resourceExtensions />
     <wildcardResourcePatterns>

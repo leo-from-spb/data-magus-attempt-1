@@ -3,7 +3,7 @@ package lb.datamagus.model.core;
 import lb.testutils.*
 import org.testng.annotations.*
 
-class NodeTest
+class NodeTest : BaseModelTestCase()
 {
 
     class TestNode (nip: NIP) : Node (nip)
@@ -13,23 +13,12 @@ class NodeTest
     }
 
 
-    var model = Model()
-
-
-
-
-    [BeforeMethod]
-    fun beforeMethod()
-    {
-        model = Model()  // instead of cleanup
-    }
-
 
     [Test]
     fun test_init_basic()
     {
         model.modify("Test") {
-            val node = TestNode(NIP(model))
+            val node = TestNode(newNIP(it))
 
             node.model _same_as_ model
 
@@ -47,10 +36,10 @@ class NodeTest
     fun test_init_register()
     {
         model.modify("Test") {
-            model.countNodes _equals_ 0
-            val node = TestNode(NIP(model))
-            model.countNodes _equals_ 1
-            val x = model.node<TestNode>(node.id)
+            it.countNodes _equals_ 0
+            val node = TestNode(newNIP(it))
+            it.countNodes _equals_ 1
+            val x = it.node<TestNode>(node.id)
             x _same_as_ node
         }
     }
@@ -60,7 +49,7 @@ class NodeTest
     fun test_drop_dropt()
     {
         model.modify("Test") {
-            val node = TestNode(NIP(model))
+            val node = TestNode(newNIP(it))
             node.dropt ._false_()
             node.drop()
             node.dropt ._true_()
@@ -72,12 +61,12 @@ class NodeTest
     fun test_drop_unregister()
     {
         model.modify("Test") {
-            val node = TestNode(NIP(model))
+            val node = TestNode(newNIP(it))
             val id = node.id
 
             node.drop()
 
-            (model hasNode id)  ._false_()
+            (it hasNode id)  ._false_()
         }
     }
 
@@ -88,9 +77,9 @@ class NodeTest
     fun test_Ref_1()
     {
         model.modify("Test") {
-            val x = TestNode(NIP(model))
-            val y = TestNode(NIP(model))
-            val z = TestNode(NIP(model))
+            val x = TestNode(newNIP(it))
+            val y = TestNode(newNIP(it))
+            val z = TestNode(newNIP(it))
 
             x.refA.node ._null_()
             x.refA.node = y
@@ -107,9 +96,9 @@ class NodeTest
     fun test_Ref_references()
     {
         model.modify("Test") {
-            val x = TestNode(NIP(model))
-            val y = TestNode(NIP(model))
-            val z = TestNode(NIP(model))
+            val x = TestNode(newNIP(it))
+            val y = TestNode(newNIP(it))
+            val z = TestNode(newNIP(it))
 
             x _not_in_ y.references
             x _not_in_ z.references
@@ -136,8 +125,8 @@ class NodeTest
     fun test_Ref_references_2times()
     {
         model.modify("Test") {
-            val x = TestNode(NIP(model))
-            val y = TestNode(NIP(model))
+            val x = TestNode(newNIP(it))
+            val y = TestNode(newNIP(it))
 
             x _not_in_ y.references
 

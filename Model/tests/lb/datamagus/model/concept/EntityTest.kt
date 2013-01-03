@@ -4,37 +4,26 @@ import lb.datamagus.model.core.*
 import lb.testutils.*
 import org.testng.annotations.*
 
-class EntityTest
+class EntityTest : BaseModelTestCase()
 {
 
-    var model = Model()
-
-
     [BeforeMethod]
-    fun beforeMethod()
+    override fun beforeMethod()
     {
-        val m = Model()  // new model instead of cleanup
-        m.modify("Init project root") {
+
+        model.modify("Init project root") {
             val projectRoot = it.createProjectRoot()
             projectRoot.conceptuals create { name = "My Test Conceptual" }
         };
-
-        this.model = m;
     }
 
-
-    [AfterMethod]
-    fun afterMethod()
-    {
-
-    }
 
 
     [Test]
     fun test1()
     {
         model.modify("Test") {
-            val concept = model.getProjectRoot().conceptuals.first!!;
+            val concept = it.getProjectRoot().conceptuals.first!!;
             val e1 = concept.entities create {}
             val e2 = concept.entities create {}
 

@@ -10,7 +10,7 @@ public abstract class Bone (nip:NIP) : Node (nip)
         {
             if ($name.equals(newName))
                 return
-            model.modification(this)
+            modification()
             $name = newName
         }
 
