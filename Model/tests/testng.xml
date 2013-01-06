@@ -10,6 +10,8 @@
             <class name="lb.datamagus.model.core.BoneTest"/>
             <class name="lb.datamagus.model.core.ProjectRootTest"/>
 
+            <class name="lb.datamagus.model.core.MetaRegistryTest"/>
+
             <class name="lb.datamagus.model.concept.EntityTest"/>
             <class name="lb.datamagus.model.concept.AttributeTest"/>
 
