@@ -3,6 +3,8 @@ package lb.datamagus.model.core
 import java.lang.reflect.*
 import java.util.LinkedHashMap
 import lb.utils.JavaUtils
+import lb.kotlin.utils.JavaClass
+
 
 /**
  * Meta model.
@@ -10,41 +12,6 @@ import lb.utils.JavaUtils
  **/
 public class MetaRegistry
 {
-
-    //// DESCRIPTOR CLASSES \\\\
-
-    /**
-     * Node meta-data description.
-     **/
-    public class NodeDescriptor
-    (
-
-            public val name: String,
-            public val base: NodeDescriptor?,
-            public val claß: Class<out Node>,
-            public val properties: Map<String,PropertyDescriptor>
-
-    )
-    {
-
-    }
-
-
-    /**
-     * Property meta-data.
-     **/
-    public class PropertyDescriptor
-    (
-            public val name: String,
-            public val claß: Class<out Any?>,
-            public val getter: Method,
-            public val setter: Method
-    )
-    {
-
-    }
-
-
 
     //// REGISTRY AS IS \\\\
 
@@ -106,14 +73,18 @@ public class MetaRegistry
                 continue
             val fname = field.getName()!!
             val fclaß = field.getType()!!
-            val fgetter = try { claß.getDeclaredMethod("get"+fname.capitalize()) } catch (x:Exception) {null}
-            if (fgetter == null || Modifier.isPrivate(fgetter.getModifiers()))
+            val ptype = fclaß.propertyType()
+            if (ptype == null)
+                continue // TODO log it
+            val pname = fname.capitalize()
+            val pgetter = try { claß.getDeclaredMethod("get"+pname) } catch (x:Exception) {null}
+            if (pgetter == null || Modifier.isPrivate(pgetter.getModifiers()))
                 continue
-            val fsetter = try { claß.getDeclaredMethod("set"+fname.capitalize(), fclaß) } catch (x:Exception) {null}
-            if (fsetter == null || Modifier.isPrivate(fsetter.getModifiers()))
+            val psetter = try { claß.getDeclaredMethod("set"+pname, fclaß) } catch (x:Exception) {null}
+            if (psetter == null || Modifier.isPrivate(psetter.getModifiers()))
                 continue
-            val property = PropertyDescriptor(fname, fclaß, fgetter, fsetter)
-            properties.put(fname, property)
+            val property = PropertyDescriptor(pname, ptype, fclaß, pgetter, psetter)
+            properties.put(pname, property)
         }
 
         val desc = NodeDescriptor(name, base, claß, properties)
@@ -121,12 +92,20 @@ public class MetaRegistry
     }
 
 
+    private fun Class<*>.propertyType() : PropertyType?
+    {
+        val name = this.getSimpleName();
+        if (name == "boolean" || name == "Boolean") return PropertyType.Bool
+        if (name == "int" || name == "Integer") return PropertyType.Int
+        if (name == "String") return PropertyType.Str
+        return null
+    }
 
 
 
     //// ACCESSORS \\\\
 
-    public fun descriptionFor(name: String) : NodeDescriptor
+    public fun get(name: String) : NodeDescriptor
     {
         val foundDescriptor = nodes[name]
         if (foundDescriptor != null)

@@ -23,6 +23,9 @@ public abstract class Node (nip: NIP)
 
     //// INITIALIZATION AND FINALIZATION \\\\
 
+    class object {}
+
+
     // constructor
     {
         val m = nip.model;

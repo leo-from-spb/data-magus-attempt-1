@@ -19,7 +19,7 @@ fun<T> T._same_as_(that: T)
 }
 
 
-fun Any?._not_null_()
+inline fun Any?._not_null_()
 {
     if (this == null)
         Assert.fail("Expected not null but got null.");
