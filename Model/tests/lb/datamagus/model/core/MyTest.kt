@@ -8,12 +8,12 @@ import org.testng.Assert
 
 public abstract class A
 {
-    public abstract class X1()
+    public abstract inner class X1()
     {
         fun a(): A = this@A
     }
 
-    public class Xxx<R:A>() : X1()
+    public inner class Xxx<R:A>() : X1()
     {
         var node: R? = null
     }

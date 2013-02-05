@@ -103,8 +103,8 @@ public abstract class Node (nip: NIP)
 
     //// FAMILY CLASS \\\\
 
-    public open class Family<C:Node>(val childClass: Class<C>)
-                    : List<C>
+    public open inner class Family<C:Node>(val childClass: Class<C>)
+                            : List<C>
     {
 
         private val children = java.util.ArrayList<C>(16)
@@ -192,13 +192,13 @@ public abstract class Node (nip: NIP)
     //// REFERENCE CLASSES \\\\
 
 
-    public open class RefPoint()
+    public open inner class RefPoint()
     {
         public fun refBy(): Node = this@Node
     }
 
 
-    public class Ref<R:Node>() : RefPoint()
+    public inner class Ref<R:Node>() : RefPoint()
     {
         public var node: R? = null
             set(newNode)
@@ -231,7 +231,7 @@ public abstract class Node (nip: NIP)
     }
 
 
-    public class Refs<R:Node>() : RefPoint()
+    public inner class Refs<R:Node>() : RefPoint()
     {
         public var nodes: List<R> = emptyList()
             set(newNodes)

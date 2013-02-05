@@ -120,7 +120,7 @@ public class ListConcat<out T> internal (lists: Array<List<T>>) : List<T>
     }
 
 
-    private class MyIterator: Iterator<T>
+    private inner class MyIterator: Iterator<T>
     {
         private var curListIndex = 0
         private var curIterator = innerLists[0].iterator()
