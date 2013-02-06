@@ -1,0 +1,7 @@
+<root>
+    <item name='javafx.application.Application void start(javafx.stage.Stage)'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun start(primaryStage : Stage) : Unit&quot;"/>
+        </annotation>
+    </item>
+</root>

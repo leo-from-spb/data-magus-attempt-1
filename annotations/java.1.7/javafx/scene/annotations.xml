@@ -1,0 +1,27 @@
+<root>
+    <item name='javafx.scene.Scene Scene(javafx.scene.Parent, double, double)'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun Scene(parent : Parent, p1 : Double, p2 : Double)&quot;"/>
+        </annotation>
+    </item>
+    <item name='javafx.scene.Scene Scene(javafx.scene.Parent)'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun Scene(p0 : Parent)&quot;"/>
+        </annotation>
+    </item>
+    <item name='javafx.scene.Scene Scene(javafx.scene.Parent, javafx.scene.paint.Paint)'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun Scene(parent : Parent, p1 : Paint?)&quot;"/>
+        </annotation>
+    </item>
+    <item name='javafx.scene.Scene Scene(javafx.scene.Parent, double, double, javafx.scene.paint.Paint)'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun Scene(parent : Parent, p1 : Double, p2 : Double, p3 : Paint?)&quot;"/>
+        </annotation>
+    </item>
+    <item name='javafx.scene.Scene Scene(javafx.scene.Parent, double, double, boolean)'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun Scene(parent : Parent, p1 : Double, p2 : Double, p3 : Boolean)&quot;"/>
+        </annotation>
+    </item>
+</root>

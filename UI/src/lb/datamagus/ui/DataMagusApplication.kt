@@ -12,9 +12,8 @@ import javafx.scene.Parent
 class DataMagusApplication: Application()
 {
 
-    public override fun start(primaryStage: Stage?)
+    public override fun start(primaryStage: Stage)
     {
-        primaryStage!!
         primaryStage.setTitle("DataMagus")
 
         val rootPane = BorderPane()
