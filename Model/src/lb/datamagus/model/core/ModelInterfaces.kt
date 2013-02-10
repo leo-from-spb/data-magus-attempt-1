@@ -6,9 +6,9 @@ package lb.datamagus.model.core
  **/
 public trait WorkModel
 {
-    public fun<T> read ( action: (AccModel)->T ) : T;
+    public fun<T> read ( action: (model: AccModel) -> T ) : T;
 
-    public fun<T> modify ( remark: String, action: (ModModel)->T ) : T;
+    public fun<T> modify ( remark: String, action: (model: ModModel) -> T ) : T;
 }
 
 /**

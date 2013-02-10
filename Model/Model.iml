@@ -10,6 +10,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="kotlin-runtime" level="application" />
     <orderEntry type="library" exported="" name="guava" level="project" />
+    <orderEntry type="module" module-name="Utils" />
     <orderEntry type="library" scope="TEST" name="testng" level="project" />
     <orderEntry type="module" module-name="TestUtils" scope="TEST" />
   </component>

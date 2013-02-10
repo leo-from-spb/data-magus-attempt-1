@@ -9,6 +9,7 @@ import kotlin.concurrent.write
 import lb.datamagus.model.core.exceptions.NoSuchNodeException
 import lb.datamagus.model.core.exceptions.NodeClassMismatchException
 
+
 /**
  * Main model implementation.
  **/

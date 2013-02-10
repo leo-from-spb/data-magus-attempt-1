@@ -5,8 +5,6 @@ package lb.datamagus.model.core
 public data class Delta
 (
 
-
-
         /**
          * Node identifier this delta is applicable to.
          **/
@@ -17,24 +15,34 @@ public data class Delta
          **/
         val kind: Delta.Kind,
 
-        val nodeDesc: NodeDescriptor,
+        /**
+         * Name of node class (the simple name, without package path)
+         **/
+        val className: String,
 
-        val props: List<Delta.Prop<Any?>>
+        /**
+         * Changed or new or deleted proeprties.
+         * In kind of delete, all properties with their old values should present
+         * in order to get an ability to restore deleted nodes).
+         **/
+        val props: List<Delta.Prop>
 
 )
 {
 
-    public enum class Kind
+    public enum class Kind (sign: Int) // TODO Byte
     {
-        Create; Change; Delete;
+        Create: Kind(-1);
+        Change: Kind( 0);
+        Delete: Kind(+1);
     }
 
 
-    public data class Prop<out P>
+    public data class Prop
     (
-        val property: PropertyDescriptor,
-        val old: P,
-        val neo: P
+        val propertyName: String,
+        val old: String?,
+        val neo: String?
     )
     {}
 

@@ -55,6 +55,10 @@ public abstract class Node (nip: NIP)
         model.modification(this)
     }
 
+    public abstract val displayName: String
+
+
+
 
     //// COMMON METHODS \\\\
 
@@ -66,7 +70,7 @@ public abstract class Node (nip: NIP)
 
     public fun toString(): String
     {
-        return "${this.javaClass.getSimpleName()}:${id}"
+        return displayName
     }
 
 
@@ -150,7 +154,7 @@ public abstract class Node (nip: NIP)
 
         public override fun iterator(): Iterator<C>
         {
-            throw RuntimeException("Not implemented yet")
+            return children.iterator()
         }
 
 

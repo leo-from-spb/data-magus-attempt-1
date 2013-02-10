@@ -7,8 +7,14 @@ public abstract class BaseModelTestCase
 {
 
     private val realModel = RealDataMagusModel();
-
     protected val model: WorkModel = realModel;
+
+
+    [BeforeClass]
+    protected open fun beforeClass()
+    {
+        Static.registry.registerNodeDescriptor(TestNodeClasses.DumbTestBoneClass!!)
+    }
 
 
     [BeforeMethod]

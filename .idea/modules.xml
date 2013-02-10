@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/DB-Oracle/DB-Oracle.iml" filepath="$PROJECT_DIR$/DB-Oracle/DB-Oracle.iml" />
       <module fileurl="file://$PROJECT_DIR$/Model/Model.iml" filepath="$PROJECT_DIR$/Model/Model.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestUtils/TestUtils.iml" filepath="$PROJECT_DIR$/TestUtils/TestUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Utils/Utils.iml" filepath="$PROJECT_DIR$/Utils/Utils.iml" />
     </modules>
   </component>
 </project>

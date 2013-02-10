@@ -10,6 +10,7 @@ class NodeTest : BaseModelTestCase()
     {
         val refA = makeRef<TestNode>()
         val refB = makeRef<TestNode>()
+        public override val displayName: String = "TestNode#${id}"
     }
 
 

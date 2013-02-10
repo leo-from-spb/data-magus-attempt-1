@@ -7,10 +7,12 @@
         <classes>
 
             <class name="lb.datamagus.model.core.NodeTest"/>
+            <class name="lb.datamagus.model.core.NodeFunctionsTest"/>
             <class name="lb.datamagus.model.core.BoneTest"/>
             <class name="lb.datamagus.model.core.ProjectRootTest"/>
 
             <class name="lb.datamagus.model.core.MetaRegistryTest"/>
+            <class name="lb.datamagus.model.core.ModelLoaderTest"/>
 
             <class name="lb.datamagus.model.concept.EntityTest"/>
             <class name="lb.datamagus.model.concept.AttributeTest"/>
