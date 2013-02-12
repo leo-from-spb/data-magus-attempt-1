@@ -32,6 +32,24 @@ class ModelLoaderTest : BaseModelTestCase()
         }
     }
 
+    [Test]
+    fun testExportNode_Ref()
+    {
+        model.modify("Test") { model ->
+
+            val bone1 = DumbTestBone(newNIP(model))
+            val bone2 = DumbTestBone(newNIP(model))
+            bone1.refProp.node = bone2
+
+            val delta = loader.exportNode(bone1)
+
+            delta.id     _equals_ bone1.id
+
+            val props = delta.props.toMap({p -> p.propertyName}, {p -> p.neo})
+            props["RefProp"]   _equals_ "#${bone2.id}"
+        }
+    }
+
 
     [Test]
     fun testExport_complex()
