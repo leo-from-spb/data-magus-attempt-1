@@ -69,6 +69,7 @@ public class MetaRegistryTest
         dumb["BoolProp"].ptype _equals_ PropertyType.Bool
         dumb["IntProp"].ptype _equals_ PropertyType.Int
         dumb["StrProp"].ptype _equals_ PropertyType.Str
+        dumb["RefProp"].ptype _equals_ PropertyType.Ref
     }
 
 }

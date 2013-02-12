@@ -1,10 +1,8 @@
 package lb.datamagus.model.core
 
 import lb.testutils.*
-import org.testng.annotations.*
-import java.util.ArrayList
 import lb.utils.toMap
-
+import org.testng.annotations.*
 
 class ModelLoaderTest : BaseModelTestCase()
 {
@@ -32,6 +30,40 @@ class ModelLoaderTest : BaseModelTestCase()
             props["IntProp"]   _equals_ "777"
             props["StrProp"]   _equals_ "bla-bla-bla"
         }
+    }
+
+
+    [Test]
+    fun testExport_complex()
+    {
+        model.modify("Test Model") { model ->
+
+            val root = model.createProjectRoot()
+            val conceptual = root.conceptuals.create { name = "Polikom Pro" }
+            val domain1 = conceptual.domains.create { name = "abstract" }
+            val domain2 = conceptual.domains.create { name = "name word" }
+            val entity1 = conceptual.entities.create { name = "Org" }
+            val attr11 = entity1.attributes.create { name = "Id"; domain.node = domain1 }
+            val attr12 = entity1.attributes.create { name = "Name"; domain.node = domain2 }
+            val entity2 = conceptual.entities.create { name = "Person" }
+            val attr21 = entity2.attributes.create { name = "Id"; domain.node = domain1 }
+            val attr22 = entity2.attributes.create { name = "Name"; domain.node = domain2 }
+
+        }
+
+        val modification =
+                model.read { model -> loader.exportWholeModelAsModification(model, "Polikom Pro") }
+
+        val deltaOrg = modification.deltas.find{d -> d.nodeDisplayName == "Org"}
+        val deltaPerson = modification.deltas.find{d -> d.nodeDisplayName == "Person"}
+
+        deltaOrg    ._not_null_()
+        deltaPerson ._not_null_()
+
+        val deltaAbstract = modification.deltas.find{d -> d.nodeDisplayName == "abstract"}!!
+        val deltaId = modification.deltas.find {d -> d.nodeDisplayName == "Id"}!!
+
+        deltaId.props.find {p -> p.propertyName == "Domain"}!!.neo _equals_ "#${deltaAbstract.id}"
     }
 
 }

@@ -21,6 +21,12 @@ public data class Delta
         val className: String,
 
         /**
+         * Node's display name. To show it in the right column.
+         * TBD in case of the name is changed - shoud it be the old or the new name?
+         **/
+        val nodeDisplayName: String,
+
+        /**
          * Changed or new or deleted proeprties.
          * In kind of delete, all properties with their old values should present
          * in order to get an ability to restore deleted nodes).

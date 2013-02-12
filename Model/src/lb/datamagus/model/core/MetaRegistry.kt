@@ -78,9 +78,12 @@ public class MetaRegistry
             val pgetter = try { claß.getDeclaredMethod("get"+pname) } catch (x:Exception) {null}
             if (pgetter == null || Modifier.isPrivate(pgetter.getModifiers()))
                 continue
-            val psetter = try { claß.getDeclaredMethod("set"+pname, fclaß) } catch (x:Exception) {null}
-            if (psetter == null || Modifier.isPrivate(psetter.getModifiers()))
-                continue
+            var psetter: Method? = null
+            if (ptype == PropertyType.Bool || ptype == PropertyType.Int || ptype == PropertyType.Str) {
+                psetter = try { claß.getDeclaredMethod("set"+pname, fclaß) } catch (x:Exception) {null}
+                if (psetter == null || psetter != null && Modifier.isPrivate(psetter!!.getModifiers()))
+                    continue
+            }
             val property = PropertyDescriptor(pname, ptype, fclaß, pgetter, psetter)
             properties.put(pname, property)
         }
@@ -96,6 +99,7 @@ public class MetaRegistry
         if (name == "boolean" || name == "Boolean") return PropertyType.Bool
         if (name == "int" || name == "Integer") return PropertyType.Int
         if (name == "String") return PropertyType.Str
+        if (name == "Ref") return PropertyType.Ref
         return null
     }
 

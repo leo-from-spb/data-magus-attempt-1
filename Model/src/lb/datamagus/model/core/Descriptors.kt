@@ -2,7 +2,6 @@ package lb.datamagus.model.core
 
 import java.lang.reflect.Method
 
-
 /**
  * Node meta-data description.
  **/
@@ -37,7 +36,7 @@ public data class PropertyDescriptor
         public val ptype: PropertyType,
         public val claß: Class<out Any?>,
         public val getter: Method,
-        public val setter: Method
+        public val setter: Method?
 )
 {
 
@@ -49,4 +48,5 @@ public enum class PropertyType
         Bool
         Int
         Str
+        Ref
 }

@@ -1,11 +1,11 @@
 package lb.datamagus.model.core
 
+import com.google.common.collect.ImmutableList
 import java.util.ArrayList
 import java.util.Date
-import com.google.common.collect.ImmutableList
 import lb.datamagus.model.core.Delta.Prop
-import java.lang.reflect.Method
-
+import lb.datamagus.model.core.Node.Ref
+import lb.utils.nullify
 
 public class ModelLoader
 {
@@ -47,7 +47,7 @@ public class ModelLoader
             props add prop
         }
 
-        val delta = Delta(node.id, Delta.Kind.Create, nodeClassName, props.build()!!)
+        val delta = Delta(node.id, Delta.Kind.Create, nodeClassName, node.displayName, props.build()!!)
         return delta
     }
 
@@ -66,7 +66,11 @@ public class ModelLoader
                        else null
                    }
                    PropertyType.Str -> {
-                       getStrValue(node, pd)
+                       getStrValue(node, pd).nullify()
+                   }
+                   PropertyType.Ref -> {
+                       val theRefNodeId = getRefValue(node, pd)
+                       if (theRefNodeId != null) return "#${theRefNodeId}"; else null
                    }
                    else ->
                        throw RuntimeException("Cannot export node $node: unknown type of property ${pd.name}.")
@@ -105,6 +109,17 @@ public class ModelLoader
             return x
         else
             throw TypeMismatchException("Could not read property ${pd.name} from $node: got a value of type ${x.javaClass.getSimpleName()} when expected a string value.")
+    }
+
+    fun getRefValue(node: Node, pd: PropertyDescriptor): Int?
+    {
+        val theRefObject = pd.getter.invoke(node);
+        theRefObject!!
+        if (theRefObject is Ref<*>) {
+            val theRef: Ref<*>  = theRefObject
+            return theRef.id
+        }
+        return 0
     }
 
 
