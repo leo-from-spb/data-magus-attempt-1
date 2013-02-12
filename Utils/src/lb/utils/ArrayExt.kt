@@ -7,7 +7,7 @@ public fun<T> Array<T>.toStr(delimiter: String = ",",
                              empty: String = "") : String
 {
     if (this.isEmpty())
-        return empty;
+        return empty
     val b = StringBuilder()
     b.append(prefix)
     var first = true
@@ -16,7 +16,7 @@ public fun<T> Array<T>.toStr(delimiter: String = ",",
             first = false
         else
             b.append(delimiter)
-        b.append(item);
+        b.append(item)
     }
     b.append(sufix)
     return b.toString()

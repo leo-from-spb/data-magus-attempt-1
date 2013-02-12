@@ -20,7 +20,8 @@ public abstract class BaseModelTestCase
     [BeforeMethod]
     protected open fun beforeMethod()
     {
-        realModel.countNodes _equals_ 0;
+        realModel.countNodes _equals_ 0
+        realModel.resetIdCounter()
     }
 
 

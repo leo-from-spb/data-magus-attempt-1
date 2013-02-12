@@ -9,7 +9,6 @@ import kotlin.concurrent.write
 import lb.datamagus.model.core.exceptions.NoSuchNodeException
 import lb.datamagus.model.core.exceptions.NodeClassMismatchException
 
-
 /**
  * Main model implementation.
  **/
@@ -167,6 +166,14 @@ internal class RealDataMagusModel : WorkModel, IntModel, ModModel
                 node.drop()
     }
 
+
+    fun resetIdCounter()
+    {
+        if (!allNodes.isEmpty())
+            throw IllegalStateException("Could not reset the counter when model contains nodes.")
+
+        idSequence.set(0)
+    }
 
 }
 

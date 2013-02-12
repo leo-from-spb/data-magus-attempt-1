@@ -100,6 +100,7 @@ public class MetaRegistry
         if (name == "int" || name == "Integer") return PropertyType.Int
         if (name == "String") return PropertyType.Str
         if (name == "Ref") return PropertyType.Ref
+        if (name == "Refs") return PropertyType.Refs
         return null
     }
 

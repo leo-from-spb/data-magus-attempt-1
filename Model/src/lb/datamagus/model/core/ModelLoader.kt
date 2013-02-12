@@ -2,10 +2,13 @@ package lb.datamagus.model.core
 
 import com.google.common.collect.ImmutableList
 import java.util.ArrayList
+import java.util.Collections
 import java.util.Date
 import lb.datamagus.model.core.Delta.Prop
 import lb.datamagus.model.core.Node.Ref
+import lb.datamagus.model.core.Node.Refs
 import lb.utils.nullify
+import lb.utils.toStr
 
 public class ModelLoader
 {
@@ -72,6 +75,10 @@ public class ModelLoader
                        val theRefNodeId = getRefValue(node, pd)
                        if (theRefNodeId != null) return "#${theRefNodeId}"; else null
                    }
+                   PropertyType.Refs -> {
+                       val theRefsNodeIds = getRefsValue(node, pd)
+                       theRefsNodeIds.toStr(",", "##", "", "").nullify()
+                   }
                    else ->
                        throw RuntimeException("Cannot export node $node: unknown type of property ${pd.name}.")
                }
@@ -116,10 +123,21 @@ public class ModelLoader
         val theRefObject = pd.getter.invoke(node);
         theRefObject!!
         if (theRefObject is Ref<*>) {
-            val theRef: Ref<*>  = theRefObject
+            val theRef: Ref<*> = theRefObject
             return theRef.id
         }
         return 0
+    }
+
+    fun getRefsValue(node: Node, pd: PropertyDescriptor): List<Int>
+    {
+        val theRefsObject = pd.getter.invoke(node);
+        theRefsObject!!
+        if (theRefsObject is Refs<*>) {
+            val theRefs: Refs<*> = theRefsObject
+            return theRefs.ids
+        }
+        return Collections.emptyList<Int>()
     }
 
 

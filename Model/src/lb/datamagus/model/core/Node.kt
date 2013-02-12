@@ -241,7 +241,7 @@ public abstract class Node (nip: NIP)
             set(newNodes)
             {
                 modification()
-                nodes = ImmutableList.copyOf(newNodes)!!
+                $nodes = ImmutableList.copyOf(newNodes)!!
 /*
                 val d = diff(nodes, newNodes)
                 for (x in d.a)
@@ -249,6 +249,15 @@ public abstract class Node (nip: NIP)
                 for (x in d.b)
                     x.addRefBy(this)
 */
+            }
+
+        public val ids: List<Int>
+            get()
+            {
+                val b = ImmutableList.builder<Int>()!!
+                for (n in nodes)
+                    b.add(n.id)
+                return b.build()!!
             }
     }
 

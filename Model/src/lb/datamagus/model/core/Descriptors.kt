@@ -49,4 +49,5 @@ public enum class PropertyType
         Int
         Str
         Ref
+        Refs
 }

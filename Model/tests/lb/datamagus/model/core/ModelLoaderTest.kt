@@ -1,5 +1,6 @@
 package lb.datamagus.model.core
 
+import com.google.common.collect.ImmutableList
 import lb.testutils.*
 import lb.utils.toMap
 import org.testng.annotations.*
@@ -43,10 +44,30 @@ class ModelLoaderTest : BaseModelTestCase()
 
             val delta = loader.exportNode(bone1)
 
-            delta.id     _equals_ bone1.id
+            bone1.id _equals_ 1
 
-            val props = delta.props.toMap({p -> p.propertyName}, {p -> p.neo})
-            props["RefProp"]   _equals_ "#${bone2.id}"
+            val refStr = delta.props.find{p -> p.propertyName == "RefProp"}!!.neo
+            refStr  _equals_ "#2"
+        }
+    }
+
+    [Test]
+    fun testExportNode_Refs()
+    {
+        model.modify("Test") { model ->
+
+            val bone1 = DumbTestBone(newNIP(model))
+            val bone2 = DumbTestBone(newNIP(model))
+            val bone3 = DumbTestBone(newNIP(model))
+            val bone4 = DumbTestBone(newNIP(model))
+            bone1.refsProp.nodes = ImmutableList.of(bone2,bone3,bone4)!!;
+
+            bone1.id _equals_ 1
+
+            val delta = loader.exportNode(bone1)
+
+            val refsStr = delta.props.find{p -> p.propertyName == "RefsProp"}!!.neo
+            refsStr _equals_ "##2,3,4"
         }
     }
 
