@@ -3,8 +3,6 @@ package lb.datamagus.model.core
 import java.lang.reflect.*
 import java.util.LinkedHashMap
 import lb.utils.JavaUtils
-import lb.kotlin.utils.JavaClass
-
 
 /**
  * Meta model.

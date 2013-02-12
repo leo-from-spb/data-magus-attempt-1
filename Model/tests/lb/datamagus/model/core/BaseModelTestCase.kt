@@ -13,7 +13,7 @@ public abstract class BaseModelTestCase
     [BeforeClass]
     protected open fun beforeClass()
     {
-        Static.registry.registerNodeDescriptor(TestNodeClasses.DumbTestBoneClass!!)
+        Static.registry.registerNodeDescriptor(javaClass<DumbTestBone>())
     }
 
 
