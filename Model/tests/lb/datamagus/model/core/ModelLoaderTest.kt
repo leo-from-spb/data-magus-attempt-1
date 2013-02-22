@@ -71,6 +71,23 @@ class ModelLoaderTest : BaseModelTestCase()
         }
     }
 
+    [Test]
+    fun testExportNode_Childfren()
+    {
+        model.modify("Test") { model ->
+
+            val parent = DumbTestBone(newNIP(model))
+            parent.kinder.create { name = "Eins" }
+            parent.kinder.create { name = "Zwei" }
+            parent.kinder.create { name = "Drei" }
+
+            val delta = loader.exportNode(parent)
+
+            val childrenStr = delta.props.find{p -> p.propertyName == "Kinder"}!!.neo
+            childrenStr _equals_ "##2,3,4"
+        }
+    }
+
 
     [Test]
     fun testExport_complex()
@@ -87,6 +104,10 @@ class ModelLoaderTest : BaseModelTestCase()
             val entity2 = conceptual.entities.create { name = "Person" }
             val attr21 = entity2.attributes.create { name = "Id"; domain.node = domain1 }
             val attr22 = entity2.attributes.create { name = "Name"; domain.node = domain2 }
+            val entityR = conceptual.entities.create { name = "Contact" }
+            val attr31 = entityR.attributes.create { name = "Org Id"; domain.node = domain1 }
+            val attr32 = entityR.attributes.create { name = "Person Id"; domain.node = domain1 }
+            val attr33 = entityR.attributes.create { name = "Position"; domain.node = domain2 }
 
         }
 

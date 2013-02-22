@@ -134,6 +134,11 @@ public abstract class Node (nip: NIP)
         }
 
 
+        //// UTILITY FUNCTIONS \\\\
+
+        public val ids: List<Int>
+            get() = children.map { it.id }
+
 
         //// LIST DELEGATES \\\\
 

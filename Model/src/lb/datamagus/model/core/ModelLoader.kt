@@ -5,6 +5,7 @@ import java.util.ArrayList
 import java.util.Collections
 import java.util.Date
 import lb.datamagus.model.core.Delta.Prop
+import lb.datamagus.model.core.Node.Family
 import lb.datamagus.model.core.Node.Ref
 import lb.datamagus.model.core.Node.Refs
 import lb.utils.nullify
@@ -71,6 +72,10 @@ public class ModelLoader
                    PropertyType.Str -> {
                        getStrValue(node, pd).nullify()
                    }
+                   PropertyType.Family -> {
+                       val theChildrenIds = getFamilyValue(node, pd)
+                       theChildrenIds.toStr(",", "##", "", "").nullify()
+                   }
                    PropertyType.Ref -> {
                        val theRefNodeId = getRefValue(node, pd)
                        if (theRefNodeId != null) return "#${theRefNodeId}"; else null
@@ -116,6 +121,17 @@ public class ModelLoader
             return x
         else
             throw TypeMismatchException("Could not read property ${pd.name} from $node: got a value of type ${x.javaClass.getSimpleName()} when expected a string value.")
+    }
+
+    fun getFamilyValue(node: Node, pd: PropertyDescriptor): List<Int>
+    {
+        val theFamilyObject = pd.getter.invoke(node);
+        theFamilyObject!!
+        if (theFamilyObject is Family<*>) {
+            val theFamily: Family<*> = theFamilyObject
+            return theFamily.ids
+        }
+        return Collections.emptyList<Int>()
     }
 
     fun getRefValue(node: Node, pd: PropertyDescriptor): Int?

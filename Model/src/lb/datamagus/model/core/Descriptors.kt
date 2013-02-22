@@ -48,6 +48,7 @@ public enum class PropertyType
         Bool
         Int
         Str
+        Family
         Ref
         Refs
 }

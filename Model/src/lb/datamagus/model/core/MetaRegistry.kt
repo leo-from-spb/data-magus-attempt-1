@@ -99,6 +99,7 @@ public class MetaRegistry
         if (name == "boolean" || name == "Boolean") return PropertyType.Bool
         if (name == "int" || name == "Integer") return PropertyType.Int
         if (name == "String") return PropertyType.Str
+        if (name == "Family") return PropertyType.Family
         if (name == "Ref") return PropertyType.Ref
         if (name == "Refs") return PropertyType.Refs
         return null
