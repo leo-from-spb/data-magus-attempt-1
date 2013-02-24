@@ -3,7 +3,7 @@ package lb.datamagus.model.core
 import lb.testutils.*
 import org.testng.annotations.*
 
-public abstract class BaseModelTestCase
+public abstract class BaseModelTestCase : BaseTestCase()
 {
 
     private val realModel = RealDataMagusModel();

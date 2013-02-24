@@ -11,7 +11,7 @@ import lb.datamagus.model.core.Node.Refs
 import lb.utils.nullify
 import lb.utils.toStr
 
-public class ModelLoader
+public class ModelManupulator
 {
 
     public fun exportWholeModelAsModification(model: AccModel, modifName: String): Modification

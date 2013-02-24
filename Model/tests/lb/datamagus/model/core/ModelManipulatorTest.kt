@@ -5,10 +5,10 @@ import lb.testutils.*
 import lb.utils.toMap
 import org.testng.annotations.*
 
-class ModelLoaderTest : BaseModelTestCase()
+class ModelManipulatorTest: BaseModelTestCase()
 {
 
-    val loader = ModelLoader()
+    val manipulator = ModelManupulator()
 
 
     [Test]
@@ -21,7 +21,7 @@ class ModelLoaderTest : BaseModelTestCase()
             bone.intProp = 777
             bone.strProp = "bla-bla-bla"
 
-            val delta = loader.exportNode(bone)
+            val delta = manipulator.exportNode(bone)
 
             delta.kind _equals_ Delta.Kind.Create
             delta.id   _equals_ bone.id
@@ -42,7 +42,7 @@ class ModelLoaderTest : BaseModelTestCase()
             val bone2 = DumbTestBone(newNIP(model))
             bone1.refProp.node = bone2
 
-            val delta = loader.exportNode(bone1)
+            val delta = manipulator.exportNode(bone1)
 
             bone1.id _equals_ 1
 
@@ -64,7 +64,7 @@ class ModelLoaderTest : BaseModelTestCase()
 
             bone1.id _equals_ 1
 
-            val delta = loader.exportNode(bone1)
+            val delta = manipulator.exportNode(bone1)
 
             val refsStr = delta.props.find{p -> p.propertyName == "RefsProp"}!!.neo
             refsStr _equals_ "##2,3,4"
@@ -81,7 +81,7 @@ class ModelLoaderTest : BaseModelTestCase()
             parent.kinder.create { name = "Zwei" }
             parent.kinder.create { name = "Drei" }
 
-            val delta = loader.exportNode(parent)
+            val delta = manipulator.exportNode(parent)
 
             val childrenStr = delta.props.find{p -> p.propertyName == "Kinder"}!!.neo
             childrenStr _equals_ "##2,3,4"
@@ -112,7 +112,7 @@ class ModelLoaderTest : BaseModelTestCase()
         }
 
         val modification =
-                model.read { model -> loader.exportWholeModelAsModification(model, "Polikom Pro") }
+                model.read { model -> manipulator.exportWholeModelAsModification(model, "Polikom Pro") }
 
         val deltaOrg = modification.deltas.find{d -> d.nodeDisplayName == "Org"}
         val deltaPerson = modification.deltas.find{d -> d.nodeDisplayName == "Person"}

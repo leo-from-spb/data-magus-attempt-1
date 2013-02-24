@@ -2,6 +2,12 @@ package lb.datamagus.model.core
 
 
 
+/**
+ * One node delta (a change between old and new state of the node).
+ *
+ * A value object.
+ * Doesn't contain references to the node or it parts.
+ */
 public data class Delta
 (
 
