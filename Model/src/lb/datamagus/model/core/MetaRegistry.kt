@@ -95,13 +95,16 @@ public class MetaRegistry
 
     private fun Class<*>.propertyType() : PropertyType?
     {
-        val name = this.getSimpleName();
+        val name = this.getSimpleName()
+                // since Kotlin M5.1, inner class names contain owner class names and one buck
+
         if (name == "boolean" || name == "Boolean") return PropertyType.Bool
         if (name == "int" || name == "Integer") return PropertyType.Int
         if (name == "String") return PropertyType.Str
-        if (name == "Family") return PropertyType.Family
-        if (name == "Ref") return PropertyType.Ref
-        if (name == "Refs") return PropertyType.Refs
+        if (name == "Node\$Family") return PropertyType.Family
+        if (name == "Node\$Ref") return PropertyType.Ref
+        if (name == "Node\$Refs") return PropertyType.Refs
+
         return null
     }
 

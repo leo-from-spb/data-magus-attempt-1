@@ -50,8 +50,7 @@ public class MetaRegistryTest
 
 
 
-    val dumbTestBoneClass: Class<DumbTestBone> =
-            JavaHelper.classForName<DumbTestBone>("lb.datamagus.model.core.DumbTestBone")
+    val dumbTestBoneClass = javaClass<DumbTestBone>()
 
 
     [Test(dependsOnMethods=array("testBoneIsRegistered"))]

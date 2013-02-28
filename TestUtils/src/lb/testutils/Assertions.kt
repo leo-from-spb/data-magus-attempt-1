@@ -137,7 +137,7 @@ fun<T> List<T>._list_(vararg exp: T)
     if (this.size() != n)
         fail("Got ${this} when expected ${exp.toStr(", ","[", "]", "<an empty list>")}. Size of lists are different.")
     var mismatches = 0;
-    for (val i in 0..n-1)
+    for (i in 0..n-1)
         if (!ObjectsAreEqual(this[i], exp[i]))
             mismatches++
     if (mismatches > 0)

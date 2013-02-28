@@ -1,7 +1,11 @@
 <project name="DataMagus" default="fetch-libs">
 
 
-    <property name="kotlin-version" value="0.5.1"/>
+    <property name="kotlin-version" value="0.5.162"/>
+
+
+    <target name="fetch-all" description="Download all neccessary 3rd party files"
+            depends="fetch-kotlin,fetch-libs"/>
 
 
     <target name="fetch-kotlin" description="Download Kotlin">
@@ -21,7 +25,8 @@
         <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-jdk-annotations/${kotlin-version}/kotlin-jdk-annotations-${kotlin-version}.jar"
              dest="lib/" skipexisting="true"/>
 
-        <!-- download kotlin-ant.jar -->
+        <get src="http://teamcity.jetbrains.com/guestAuth/repository/download/bt345/${kotlin-version}/kotlin-compiler-${kotlin-version}.zip%21/kotlinc/lib/kotlin-ant.jar"
+             dest="lib/" skipexisting="true"/>
 
     </target>
 
