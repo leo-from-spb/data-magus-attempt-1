@@ -40,7 +40,7 @@ public class ModelManupulator
     public fun exportNode(node: Node): Delta
     {
         val nodeClassName = node.javaClass.getSimpleName()
-        val nodeDescriptor = Static.registry.get(nodeClassName)
+        val nodeDescriptor = registry.get(nodeClassName)
         val props = ImmutableList.builder<Prop>()!!
 
         for (pd in nodeDescriptor.properties.values()) {

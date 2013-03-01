@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList
 
 
 public val Node.descriptor : NodeDescriptor
-    get() = Static.registry.get(this.javaClass.getSimpleName())
+    get() = registry.get(this.javaClass.getSimpleName())
 
 
 public fun Node.traverseAll(action: (node:Node)->(Unit))

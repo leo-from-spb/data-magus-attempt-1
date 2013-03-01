@@ -2,7 +2,6 @@ package lb.datamagus.model.core
 
 import java.lang.reflect.*
 import java.util.LinkedHashMap
-import lb.utils.JavaUtils
 
 /**
  * Meta model.
@@ -28,10 +27,11 @@ public class MetaRegistry
     }
 
 
-    public fun<C> registerNodeDescriptor (claß: Class<C>)
+    public fun<C> registerNodeDescriptor (claß: Class<C>) : Void?
             where C : Node
     {
         registerNodeDescriptorRecursively(claß)
+        return null
     }
 
     public fun<C> registerNodeDescriptorRecursively (claß: Class<C>) : NodeDescriptor
@@ -42,8 +42,7 @@ public class MetaRegistry
         var baseDesc: NodeDescriptor? = null
 
         if (name != "Node") {
-            // val baseClaß = claß.getSuperClass()  // ASK WTF?
-            val baseClaß = JavaUtils.getSuperClass(claß)
+            val baseClaß = claß.getSuperclass()
             if (baseClaß == null)
                 throw IllegalArgumentException("The class $name is not a kind of Node class")
             val baseName = baseClaß.getSimpleName()

@@ -6,8 +6,6 @@ import org.testng.annotations.*
 public class MetaRegistryTest
 {
 
-    val registry = Static.registry;
-
     [Test]
     fun testNodeIsRegistered()
     {

@@ -3,7 +3,7 @@ package lb.datamagus.model.core
 import lb.testutils.*
 import org.testng.annotations.*
 
-public abstract class BaseModelTestCase : BaseTestCase()
+public abstract class BaseModelTestCase
 {
 
     private val realModel = RealDataMagusModel();
@@ -13,7 +13,7 @@ public abstract class BaseModelTestCase : BaseTestCase()
     [BeforeClass]
     protected open fun beforeClass()
     {
-        Static.registry.registerNodeDescriptor(javaClass<DumbTestBone>())
+        registry.registerNodeDescriptor(javaClass<DumbTestBone>())
     }
 
 
