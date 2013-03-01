@@ -5,8 +5,12 @@
     <property name="guava-version" value="12.0.1"/>
     <property name="testng-version" value="6.7"/>
 
+
     <taskdef resource="org/jetbrains/jet/buildtools/ant/antlib.xml"
              classpath="lib/kotlin-ant.jar"/>
+
+    <taskdef resource="testngtasks"
+             classpath="lib/testng.jar"/>
 
 
     <target name="fetch-all" description="Download all neccessary 3rd party files"
@@ -51,6 +55,8 @@
              dest="lib/testng-javadoc.jar" skipexisting="true"/>
         <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/${testng-version}/testng-${testng-version}-sources.jar"
              dest="lib/testng-sources.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/beust/jcommander/1.30/jcommander-1.30.jar"
+             dest="lib/jcommander.jar" skipexisting="true"/>
 
     </target>
 
@@ -123,6 +129,27 @@
         </kotlinc>
     </target>
 
+
+    <target name="test" description="Run all tests"
+            depends="test-Model"/>
+
+
+    <target name="test-Model">
+        <testng outputdir="out/test-output">
+            <xmlfileset dir="Model/tests" includes="testng.xml"/>
+            <classpath>
+                <file file="lib/kotlin-runtime.jar"/>
+                <file file="lib/kotlin-stdlib.jar"/>
+                <file file="lib/guava.jar"/>
+                <file file="lib/testng.jar"/>
+                <file file="lib/jcommander.jar"/>
+                <file file="out/build/Utils.jar"/>
+                <file file="out/build/Model.jar"/>
+                <file file="out/build/ModelTest.jar"/>
+                <file file="out/build/TestUtils.jar"/>
+            </classpath>
+        </testng>
+    </target>
 
 
 </project>
