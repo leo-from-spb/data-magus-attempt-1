@@ -29,12 +29,6 @@ class FileLoaderTest
         return wm
     }
 
-    [Test]
-    fun dummy()
-    {
-        //
-    }
-
 
     [Test]
     fun testSaveModelToFile_basic()
