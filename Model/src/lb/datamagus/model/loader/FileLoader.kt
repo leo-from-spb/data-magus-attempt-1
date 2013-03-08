@@ -1,7 +1,7 @@
 package lb.datamagus.model.loader
 
-import java.io.File
 import java.io.Writer
+import java.nio.file.Path
 import lb.datamagus.model.core.Delta
 import lb.datamagus.model.core.ModelManupulator
 import lb.datamagus.model.core.Modification
@@ -10,7 +10,7 @@ import lb.utils.produceText
 
 public class FileLoader
 {
-    public fun saveModelToFile(model: WorkModel, file: File)
+    public fun saveModelToFile(model: WorkModel, file: Path)
     {
         // export the fiven model
         val mm = ModelManupulator()
@@ -24,7 +24,7 @@ public class FileLoader
     }
 
 
-    fun saveModificationToFile(memo: Modification, file: File)
+    fun saveModificationToFile(memo: Modification, file: Path)
     {
         file.produceText { writer ->
 

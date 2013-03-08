@@ -1,5 +1,6 @@
 package lb.datamagus.model.loader
 
+import java.nio.file.Files
 import lb.datamagus.model.core.RealDataMagusModel
 import lb.datamagus.model.core.WorkModel
 import lb.testutils.*
@@ -42,10 +43,10 @@ class FileLoaderTest
         val model = prepareBasicModel()
         val loader = FileLoader()
 
-        val file = dir.resolve("basic.dm")!!.toFile()!!
+        val file = dir.resolve("basic.dm")!!
         loader.saveModelToFile(model, file)
 
-        file.exists() ._true_()
+        Files.exists(file) ._true_()
     }
 
 
