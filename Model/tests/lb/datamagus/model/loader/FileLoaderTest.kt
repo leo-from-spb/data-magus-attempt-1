@@ -35,11 +35,10 @@ class FileLoaderTest
     }
 
 
-/*
     [Test]
     fun testSaveModelToFile_basic()
     {
-        val dir = createTempDir()
+        val dir = lb.datamagus.model.TEMPO.getDirectory("basic")
         val model = prepareBasicModel()
         val loader = FileLoader()
 
@@ -48,7 +47,7 @@ class FileLoaderTest
 
         file.exists() ._true_()
     }
-*/
+
 
 }
 
