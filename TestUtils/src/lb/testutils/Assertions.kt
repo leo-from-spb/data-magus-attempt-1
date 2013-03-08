@@ -1,6 +1,11 @@
 package lb.testutils
 
 import org.testng.Assert
+import kotlin.test.fail
+import lb.utils
+import lb.utils.toStr
+import lb.utils.ObjectsAreEqual
+
 
 fun<T> T._equals_(that: T)
 {
@@ -123,3 +128,21 @@ fun Boolean._false_()
 {
     Assert.assertFalse(this);
 }
+
+
+fun<T> List<T>._list_(vararg exp: T)
+{
+    val n = exp.size;
+    val got = this.toArray();
+    if (this.size() != n)
+        fail("Got ${this} when expected ${exp.toStr(", ","[", "]", "<an empty list>")}. Size of lists are different.")
+    var mismatches = 0;
+    for (i in 0..n-1)
+        if (!ObjectsAreEqual(this[i], exp[i]))
+            mismatches++
+    if (mismatches > 0)
+        fail("Got ${this} when expected ${exp.toStr(", ","[", "]", "<an empty list>")}. Found $mismatches mismatches.")
+}
+
+
+

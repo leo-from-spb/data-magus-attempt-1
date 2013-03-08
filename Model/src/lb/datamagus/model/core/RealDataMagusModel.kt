@@ -167,6 +167,14 @@ internal class RealDataMagusModel : WorkModel, IntModel, ModModel
     }
 
 
+    fun resetIdCounter()
+    {
+        if (!allNodes.isEmpty())
+            throw IllegalStateException("Could not reset the counter when model contains nodes.")
+
+        idSequence.set(0)
+    }
+
 }
 
 

@@ -6,8 +6,6 @@ import org.testng.annotations.*
 public class MetaRegistryTest
 {
 
-    val registry = Static.registry;
-
     [Test]
     fun testNodeIsRegistered()
     {
@@ -50,8 +48,7 @@ public class MetaRegistryTest
 
 
 
-    val dumbTestBoneClass: Class<DumbTestBone> =
-            JavaHelper.classForName<DumbTestBone>("lb.datamagus.model.core.DumbTestBone")
+    val dumbTestBoneClass = javaClass<DumbTestBone>()
 
 
     [Test(dependsOnMethods=array("testBoneIsRegistered"))]
@@ -69,6 +66,8 @@ public class MetaRegistryTest
         dumb["BoolProp"].ptype _equals_ PropertyType.Bool
         dumb["IntProp"].ptype _equals_ PropertyType.Int
         dumb["StrProp"].ptype _equals_ PropertyType.Str
+        dumb["RefProp"].ptype _equals_ PropertyType.Ref
+        dumb["RefsProp"].ptype _equals_ PropertyType.Refs
     }
 
 }

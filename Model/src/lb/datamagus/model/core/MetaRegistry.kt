@@ -2,9 +2,6 @@ package lb.datamagus.model.core
 
 import java.lang.reflect.*
 import java.util.LinkedHashMap
-import lb.utils.JavaUtils
-import lb.kotlin.utils.JavaClass
-
 
 /**
  * Meta model.
@@ -30,10 +27,11 @@ public class MetaRegistry
     }
 
 
-    public fun<C> registerNodeDescriptor (claß: Class<C>)
+    public fun<C> registerNodeDescriptor (claß: Class<C>) : Void?
             where C : Node
     {
         registerNodeDescriptorRecursively(claß)
+        return null
     }
 
     public fun<C> registerNodeDescriptorRecursively (claß: Class<C>) : NodeDescriptor
@@ -44,8 +42,7 @@ public class MetaRegistry
         var baseDesc: NodeDescriptor? = null
 
         if (name != "Node") {
-            // val baseClaß = claß.getSuperClass()  // ASK WTF?
-            val baseClaß = JavaUtils.getSuperClass(claß)
+            val baseClaß = claß.getSuperclass()
             if (baseClaß == null)
                 throw IllegalArgumentException("The class $name is not a kind of Node class")
             val baseName = baseClaß.getSimpleName()
@@ -80,9 +77,12 @@ public class MetaRegistry
             val pgetter = try { claß.getDeclaredMethod("get"+pname) } catch (x:Exception) {null}
             if (pgetter == null || Modifier.isPrivate(pgetter.getModifiers()))
                 continue
-            val psetter = try { claß.getDeclaredMethod("set"+pname, fclaß) } catch (x:Exception) {null}
-            if (psetter == null || Modifier.isPrivate(psetter.getModifiers()))
-                continue
+            var psetter: Method? = null
+            if (ptype == PropertyType.Bool || ptype == PropertyType.Int || ptype == PropertyType.Str) {
+                psetter = try { claß.getDeclaredMethod("set"+pname, fclaß) } catch (x:Exception) {null}
+                if (psetter == null || psetter != null && Modifier.isPrivate(psetter!!.getModifiers()))
+                    continue
+            }
             val property = PropertyDescriptor(pname, ptype, fclaß, pgetter, psetter)
             properties.put(pname, property)
         }
@@ -94,10 +94,16 @@ public class MetaRegistry
 
     private fun Class<*>.propertyType() : PropertyType?
     {
-        val name = this.getSimpleName();
+        val name = this.getSimpleName()
+                // since Kotlin M5.1, inner class names contain owner class names and one buck
+
         if (name == "boolean" || name == "Boolean") return PropertyType.Bool
         if (name == "int" || name == "Integer") return PropertyType.Int
         if (name == "String") return PropertyType.Str
+        if (name == "Node\$Family") return PropertyType.Family
+        if (name == "Node\$Ref") return PropertyType.Ref
+        if (name == "Node\$Refs") return PropertyType.Refs
+
         return null
     }
 

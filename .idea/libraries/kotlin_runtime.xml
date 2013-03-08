@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="kotlin-runtime">
+    <ANNOTATIONS>
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-jdk-annotations.jar!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-runtime.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-stdlib.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-runtime-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-runtime-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/kotlin-stdlib-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

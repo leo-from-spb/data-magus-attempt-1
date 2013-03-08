@@ -7,14 +7,21 @@ public abstract class BaseModelTestCase
 {
 
     private val realModel = RealDataMagusModel();
-
     protected val model: WorkModel = realModel;
+
+
+    [BeforeClass]
+    protected open fun beforeClass()
+    {
+        registry.registerNodeDescriptor(javaClass<DumbTestBone>())
+    }
 
 
     [BeforeMethod]
     protected open fun beforeMethod()
     {
-        realModel.countNodes _equals_ 0;
+        realModel.countNodes _equals_ 0
+        realModel.resetIdCounter()
     }
 
 

@@ -1,22 +1,154 @@
 <project name="DataMagus" default="fetch-libs">
 
 
+    <property name="kotlin-version" value="0.5.162"/>
+    <property name="guava-version" value="12.0.1"/>
+    <property name="testng-version" value="6.7"/>
+
+
+    <taskdef resource="org/jetbrains/jet/buildtools/ant/antlib.xml"
+             classpath="lib/kotlin-ant.jar"/>
+
+    <taskdef resource="testngtasks"
+             classpath="lib/testng.jar"/>
+
+
+    <target name="fetch-all" description="Download all neccessary 3rd party files"
+            depends="fetch-kotlin,fetch-libs"/>
+
+
+    <target name="fetch-kotlin" description="Download Kotlin">
+
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-runtime/${kotlin-version}/kotlin-runtime-${kotlin-version}.jar"
+             dest="lib/kotlin-runtime.jar" skipexisting="true"/>
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-runtime/${kotlin-version}/kotlin-runtime-${kotlin-version}-sources.jar"
+             dest="lib/kotlin-runtime-sources.jar" skipexisting="true"/>
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-runtime/${kotlin-version}/kotlin-runtime-${kotlin-version}-javadoc.jar"
+             dest="lib/kotlin-runtime-javadoc.jar" skipexisting="true"/>
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-stdlib/${kotlin-version}/kotlin-stdlib-${kotlin-version}.jar"
+             dest="lib/kotlin-stdlib.jar" skipexisting="true"/>
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-stdlib/${kotlin-version}/kotlin-stdlib-${kotlin-version}-sources.jar"
+             dest="lib/kotlin-stdlib-sources.jar" skipexisting="true"/>
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-compiler/${kotlin-version}/kotlin-compiler-${kotlin-version}.jar"
+             dest="lib/kotlin-compiler.jar" skipexisting="true"/>
+        <get src="http://repository.jetbrains.com/kotlin/org/jetbrains/kotlin/kotlin-jdk-annotations/${kotlin-version}/kotlin-jdk-annotations-${kotlin-version}.jar"
+             dest="lib/kotlin-jdk-annotations.jar" skipexisting="true"/>
+
+        <get src="http://teamcity.jetbrains.com/guestAuth/repository/download/bt345/${kotlin-version}/kotlin-compiler-${kotlin-version}.zip%21/kotlinc/lib/kotlin-ant.jar"
+             dest="lib/" skipexisting="true"/>
+
+    </target>
+
+
     <target name="fetch-libs" description="Download necessary libraries">
 
-        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/12.0.1/guava-12.0.1.jar"
-             dest="lib/guava-12.0.1.jar" skipexisting="true"/>
-        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/12.0.1/guava-12.0.1-javadoc.jar"
-             dest="lib/guava-12.0.1-javadoc.jar" skipexisting="true"/>
-        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/12.0.1/guava-12.0.1-sources.jar"
-             dest="lib/guava-12.0.1-sources.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/${guava-version}/guava-${guava-version}.jar"
+             dest="lib/guava.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/${guava-version}/guava-${guava-version}-javadoc.jar"
+             dest="lib/guava-javadoc.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/google/guava/guava/${guava-version}/guava-${guava-version}-sources.jar"
+             dest="lib/guava-sources.jar" skipexisting="true"/>
 
-        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/6.7/testng-6.7.jar"
-             dest="lib/testng-6.7.jar" skipexisting="true"/>
-        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/6.7/testng-6.7-javadoc.jar"
-             dest="lib/testng-6.7-javadoc.jar" skipexisting="true"/>
-        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/6.7/testng-6.7-sources.jar"
-             dest="lib/testng-6.7-sources.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/${testng-version}/testng-${testng-version}.jar"
+             dest="lib/testng.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/${testng-version}/testng-${testng-version}-javadoc.jar"
+             dest="lib/testng-javadoc.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=org/testng/testng/${testng-version}/testng-${testng-version}-sources.jar"
+             dest="lib/testng-sources.jar" skipexisting="true"/>
+        <get src="http://search.maven.org/remotecontent?filepath=com/beust/jcommander/1.30/jcommander-1.30.jar"
+             dest="lib/jcommander.jar" skipexisting="true"/>
 
+    </target>
+
+
+    <target name="clean" description="Clean compilation output">
+        <delete dir="out" quiet="true"/>
+    </target>
+
+
+    <target name="compile-pro" description="Compile production files"
+            depends="compile-Utils,compile-Model"/>
+
+    <target name="compile-tests" description="Compile test files"
+            depends="compile-pro,compile-TestUtils,compile-ModelTest"/>
+
+    <target name="compile"
+            depends="compile-pro,compile-tests"/>
+
+
+    <target name="compile-Utils">
+        <mkdir dir="out/build"/>
+        <kotlinc src="Utils/src" jar="out/build/Utils.jar">
+            <classpath>
+                <file file="lib/kotlin-runtime.jar"/>
+                <file file="lib/kotlin-stdlib.jar"/>
+                <file file="lib/guava.jar"/>
+            </classpath>
+        </kotlinc>
+    </target>
+
+
+    <target name="compile-TestUtils">
+        <mkdir dir="out/build"/>
+        <kotlinc src="TestUtils/src" jar="out/build/TestUtils.jar">
+            <classpath>
+                <file file="lib/kotlin-runtime.jar"/>
+                <file file="lib/kotlin-stdlib.jar"/>
+                <file file="lib/guava.jar"/>
+                <file file="lib/testng.jar"/>
+                <file file="out/build/Utils.jar"/>
+            </classpath>
+        </kotlinc>
+    </target>
+
+
+    <target name="compile-Model">
+        <mkdir dir="out/build"/>
+        <kotlinc src="Model/src" jar="out/build/Model.jar">
+            <classpath>
+                <file file="lib/kotlin-runtime.jar"/>
+                <file file="lib/kotlin-stdlib.jar"/>
+                <file file="lib/guava.jar"/>
+                <file file="out/build/Utils.jar"/>
+            </classpath>
+        </kotlinc>
+    </target>
+
+    <target name="compile-ModelTest">
+        <mkdir dir="out/build"/>
+        <kotlinc src="Model/tests" jar="out/build/ModelTest.jar">
+            <classpath>
+                <file file="lib/kotlin-runtime.jar"/>
+                <file file="lib/kotlin-stdlib.jar"/>
+                <file file="lib/guava.jar"/>
+                <file file="lib/testng.jar"/>
+                <file file="out/build/Utils.jar"/>
+                <file file="out/build/Model.jar"/>
+                <file file="out/build/TestUtils.jar"/>
+            </classpath>
+        </kotlinc>
+    </target>
+
+
+    <target name="test" description="Run all tests"
+            depends="test-Model"/>
+
+
+    <target name="test-Model">
+        <testng outputdir="out/test-output">
+            <xmlfileset dir="Model/tests" includes="testng.xml"/>
+            <classpath>
+                <file file="lib/kotlin-runtime.jar"/>
+                <file file="lib/kotlin-stdlib.jar"/>
+                <file file="lib/guava.jar"/>
+                <file file="lib/testng.jar"/>
+                <file file="lib/jcommander.jar"/>
+                <file file="out/build/Utils.jar"/>
+                <file file="out/build/Model.jar"/>
+                <file file="out/build/ModelTest.jar"/>
+                <file file="out/build/TestUtils.jar"/>
+            </classpath>
+        </testng>
     </target>
 
 

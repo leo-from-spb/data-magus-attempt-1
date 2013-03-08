@@ -5,7 +5,7 @@ package lb.datamagus.model.core;
 public abstract class Bone (nip:NIP) : Node (nip)
 {
 
-    var name: String = "Bone ${id}"
+    var name: String = "${this.javaClass.getSimpleName()}.${id}"
         set(newName)
         {
             if ($name.equals(newName))
@@ -15,7 +15,7 @@ public abstract class Bone (nip:NIP) : Node (nip)
         }
 
 
-
+    public override val displayName: String get() = $name
 
 }
 

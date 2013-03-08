@@ -55,6 +55,10 @@ public abstract class Node (nip: NIP)
         model.modification(this)
     }
 
+    public abstract val displayName: String
+
+
+
 
     //// COMMON METHODS \\\\
 
@@ -66,7 +70,7 @@ public abstract class Node (nip: NIP)
 
     public fun toString(): String
     {
-        return "${this.javaClass.getSimpleName()}:${id}"
+        return displayName
     }
 
 
@@ -130,6 +134,11 @@ public abstract class Node (nip: NIP)
         }
 
 
+        //// UTILITY FUNCTIONS \\\\
+
+        public val ids: List<Int>
+            get() = children.map { it.id }
+
 
         //// LIST DELEGATES \\\\
 
@@ -150,7 +159,7 @@ public abstract class Node (nip: NIP)
 
         public override fun iterator(): Iterator<C>
         {
-            throw RuntimeException("Not implemented yet")
+            return children.iterator()
         }
 
 
@@ -237,7 +246,7 @@ public abstract class Node (nip: NIP)
             set(newNodes)
             {
                 modification()
-                nodes = ImmutableList.copyOf(newNodes)!!
+                $nodes = ImmutableList.copyOf(newNodes)!!
 /*
                 val d = diff(nodes, newNodes)
                 for (x in d.a)
@@ -245,6 +254,15 @@ public abstract class Node (nip: NIP)
                 for (x in d.b)
                     x.addRefBy(this)
 */
+            }
+
+        public val ids: List<Int>
+            get()
+            {
+                val b = ImmutableList.builder<Int>()!!
+                for (n in nodes)
+                    b.add(n.id)
+                return b.build()!!
             }
     }
 
