@@ -1,0 +1,7 @@
+<root>
+    <item name='javafx.scene.layout.Pane javafx.collections.ObservableList&lt;javafx.scene.Node&gt; getChildren()'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun getChildren() : ObservableList&lt;Node&gt;&quot;"/>
+        </annotation>
+    </item>
+</root>

@@ -1,0 +1,12 @@
+<root>
+    <item name='javafx.scene.control.MenuBar javafx.collections.ObservableList&lt;javafx.scene.control.Menu&gt; getMenus()'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun getMenus() : ObservableList&lt;Menu&gt;&quot;"/>
+        </annotation>
+    </item>
+    <item name='javafx.scene.control.Menu javafx.collections.ObservableList&lt;javafx.scene.control.MenuItem&gt; getItems()'>
+        <annotation name='jet.runtime.typeinfo.KotlinSignature'>
+            <val name="value" val="&quot;fun getItems() : ObservableList&lt;MenuItem&gt;&quot;"/>
+        </annotation>
+    </item>
+</root>
