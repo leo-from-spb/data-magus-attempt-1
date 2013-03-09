@@ -10,6 +10,8 @@
     <orderEntry type="module" module-name="Model" />
     <orderEntry type="module" module-name="DB-Abstract" />
     <orderEntry type="module" module-name="Utils" />
+    <orderEntry type="library" name="kotlin-runtime" level="project" />
+    <orderEntry type="library" name="guava" level="project" />
   </component>
 </module>
 
