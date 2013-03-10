@@ -1,6 +1,7 @@
 package lb.datamagus.ui
 
 import javafx.application.Application
+import javafx.*
 import javafx.scene.*
 import javafx.scene.control.*
 import javafx.scene.layout.*
@@ -18,7 +19,7 @@ class DataMagusApplication: Application()
         val scene = Scene(rootPane:Parent, 600.0, 600.0)
 
         val menuBar = makeMenu()
-        rootPane.getChildren().addAll(menuBar)
+        rootPane.children.addAll(menuBar)
 
         primaryStage.setScene(scene)
         primaryStage.show()
@@ -30,13 +31,13 @@ class DataMagusApplication: Application()
         val menuBar = MenuBar()
 
         val menuProject = Menu("Project")
-        menuProject.getItems().addAll(MenuItem("New…"), SeparatorMenuItem(), MenuItem("Quit"))
+        menuProject.items.addAll(MenuItem("New…"), SeparatorMenuItem(), MenuItem("Quit"))
 
         val menuEdit = Menu("Edit")
-        menuEdit.getItems().addAll(MenuItem("Copy"), MenuItem("Paste"))
+        menuEdit.items.addAll(MenuItem("Copy"), MenuItem("Paste"))
 
         val menuDatabase = Menu("Database")
-        menuBar.getMenus().addAll(menuProject, menuEdit, menuDatabase)
+        menuBar.menus.addAll(menuProject, menuEdit, menuDatabase)
         menuBar.setUseSystemMenuBar(true)
 
         return menuBar
