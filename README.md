@@ -1,4 +1,4 @@
-datamagus
+DataMagus
 =========
 
 Data Magus Generation III
