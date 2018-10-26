@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/model-api/model-api.iml" filepath="$PROJECT_DIR$/model-api/model-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model-gen/model-gen.iml" filepath="$PROJECT_DIR$/model-gen/model-gen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/model-imp/model-imp.iml" filepath="$PROJECT_DIR$/model-imp/model-imp.iml" />
+    </modules>
+  </component>
+</project>
