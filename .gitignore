@@ -4,7 +4,6 @@
 *.ear
 *.zip
 
-lib
 out
 dist
 coverage
@@ -23,10 +22,6 @@ build
 .idea/shelf
 .idea/ant.xml
 .idea/dataSources.local.xml
-
-.idea/libraries
-.idea/modules
-.idea/modules.xml
 
 test-db.config
 test-db.properties
