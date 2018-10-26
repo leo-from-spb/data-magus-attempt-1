@@ -5,5 +5,5 @@ Data Magus Generation III
 
 
 Main Development Stuff: 
-    Idea: 11.1
-    Kotlin: internal 0.1.2862
+    Idea: 2018.3
+    Kotlin: 1.3.0
