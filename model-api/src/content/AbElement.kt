@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.model
+package org.jetbrains.datamagus.model.content
 
 /**
  * Abstract model element.
