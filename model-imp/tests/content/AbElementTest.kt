@@ -14,7 +14,6 @@ class AbElementTest
         val e1: ConEntity = ImmConEntity(26, "Нечто")
         assertThat(e1.id).isEqualTo(26)
         assertThat(e1.name).isEqualTo("Нечто")
-        throw RuntimeException("AAA!")
     }
 
     @Test

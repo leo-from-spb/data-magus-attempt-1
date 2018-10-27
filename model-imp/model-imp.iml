@@ -12,9 +12,7 @@
     <orderEntry type="module" module-name="model-api" />
     <orderEntry type="library" name="kotlin-stdlib-jdk8" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-jupiter-api" level="project" />
-    <orderEntry type="library" scope="TEST" name="junit-jupiter-engine" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-jupiter-params" level="project" />
-    <orderEntry type="library" scope="TEST" name="junit-platform-launcher" level="project" />
     <orderEntry type="library" scope="TEST" name="assertj-core" level="project" />
   </component>
 </module>
