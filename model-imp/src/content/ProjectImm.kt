@@ -1,6 +1,6 @@
-package org.jetbrains.datamagus.model.base.imm
+package org.jetbrains.datamagus.model.content
 
-import org.jetbrains.datamagus.model.content.ProProject
+import com.jetbrains.datamagus.model.content.ProProject
 
 
 class ImmProProject : ProProject

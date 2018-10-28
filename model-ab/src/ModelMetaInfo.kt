@@ -1,5 +1,6 @@
-package org.jetbrains.datamagus.model.content
+package com.jetbrains.datamagus.model
 
+import com.jetbrains.datamagus.model.content.*
 import kotlin.reflect.KClass
 
 object ModelMetaInfo

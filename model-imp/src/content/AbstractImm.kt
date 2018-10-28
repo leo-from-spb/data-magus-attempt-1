@@ -1,7 +1,7 @@
-package org.jetbrains.datamagus.model.base.imm
+package org.jetbrains.datamagus.model.content
 
-import org.jetbrains.datamagus.model.content.AbElement
-import org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.Family
+import com.jetbrains.datamagus.model.ancillary.Family
+import com.jetbrains.datamagus.model.content.AbElement
 
 abstract class ImmElement : AbElement
 {

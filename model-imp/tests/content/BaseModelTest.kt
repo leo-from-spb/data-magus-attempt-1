@@ -1,6 +1,7 @@
-package org.jetbrains.datamagus.model.base
+package org.jetbrains.datamagus.model.content
 
 import org.assertj.core.api.Assertions.assertThat
+import org.jetbrains.datamagus.model.BaseModel
 import org.junit.jupiter.api.Test
 
 class BaseModelTest {

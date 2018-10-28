@@ -1,8 +1,8 @@
 package org.jetbrains.datamagus.model.content
 
+import com.jetbrains.datamagus.model.content.ConAttribute
+import com.jetbrains.datamagus.model.content.ConEntity
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.datamagus.model.base.imm.ImmConAttribute
-import org.jetbrains.datamagus.model.base.imm.ImmConEntity
 import org.junit.jupiter.api.Test
 
 class AbElementTest

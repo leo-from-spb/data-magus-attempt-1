@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.model.content
+package com.jetbrains.datamagus.model.content
 
 /**
  * Abstract model element.
@@ -15,3 +15,4 @@ interface AbElement
     val id: Int
 
 }
+

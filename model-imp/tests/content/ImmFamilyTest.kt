@@ -1,9 +1,9 @@
-package org.jetbrains.datamagus.model.base.imm
+package org.jetbrains.datamagus.model.content
 
 
+import com.jetbrains.datamagus.model.ancillary.Family
+import com.jetbrains.datamagus.model.content.AbElement
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.datamagus.model.content.AbElement
-import org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.Family
 import org.junit.jupiter.api.Test
 
 
@@ -49,7 +49,7 @@ class ImmFamilyTest
         val e1: ImmElement = ImmConDomain(111)
         val e2: ImmElement = ImmConDomain(222)
         val e3: ImmElement = ImmConDomain(333)
-        val f: Family<AbElement> = ImmMultFamily(arrayOf(e1,e2,e3), true)
+        val f: Family<AbElement> = ImmMultFamily(arrayOf(e1, e2, e3), true)
         assertThat(f.size).isEqualTo(3)
         assertThat(f.isEmpty()).isFalse()
         assertThat(f.isNotEmpty()).isTrue()
@@ -60,7 +60,7 @@ class ImmFamilyTest
         val e1: ImmElement = ImmConDomain(111)
         val e2: ImmElement = ImmConDomain(222)
         val e3: ImmElement = ImmConDomain(333)
-        val f: Family<AbElement> = ImmMultFamily(arrayOf(e1,e2,e3), true)
+        val f: Family<AbElement> = ImmMultFamily(arrayOf(e1, e2, e3), true)
         val iterator = f.iterator()
         assertThat(iterator.hasNext()).isTrue()
         assertThat(iterator.next()).isSameAs(e1)

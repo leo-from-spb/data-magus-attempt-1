@@ -1,6 +1,6 @@
-package org.jetbrains.datamagus.model.base.imm
+package org.jetbrains.datamagus.model.content
 
-import org.jetbrains.datamagus.model.content.*
+import com.jetbrains.datamagus.model.content.*
 
 class ImmConModel : ImmElement, ConModel
 {

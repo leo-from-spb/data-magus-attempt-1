@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.model.content
+package com.jetbrains.datamagus.model.content
 
 interface ProProject : AbElement {
 

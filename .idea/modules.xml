@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/model-ab/model-ab.iml" filepath="$PROJECT_DIR$/model-ab/model-ab.iml" />
       <module fileurl="file://$PROJECT_DIR$/model-api/model-api.iml" filepath="$PROJECT_DIR$/model-api/model-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/model-gen/model-gen.iml" filepath="$PROJECT_DIR$/model-gen/model-gen.iml" />
       <module fileurl="file://$PROJECT_DIR$/model-imp/model-imp.iml" filepath="$PROJECT_DIR$/model-imp/model-imp.iml" />

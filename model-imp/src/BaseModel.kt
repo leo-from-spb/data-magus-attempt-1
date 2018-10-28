@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.model.base
+package org.jetbrains.datamagus.model
 
 import java.util.concurrent.atomic.AtomicInteger
 
