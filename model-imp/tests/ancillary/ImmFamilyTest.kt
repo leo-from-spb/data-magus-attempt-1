@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.model.content
+package org.jetbrains.datamagus.model.ancillary
 
 
 import com.jetbrains.datamagus.model.ancillary.Family
@@ -6,6 +6,9 @@ import com.jetbrains.datamagus.model.ancillary.findByName
 import com.jetbrains.datamagus.model.ancillary.indexOfName
 import com.jetbrains.datamagus.model.content.AbElement
 import org.assertj.core.api.Assertions.assertThat
+import org.jetbrains.datamagus.model.content.ImmConAttribute
+import org.jetbrains.datamagus.model.content.ImmConDomain
+import org.jetbrains.datamagus.model.content.ImmElement
 import org.junit.jupiter.api.Test
 
 
@@ -14,7 +17,7 @@ class ImmFamilyTest
 
     @Test
     fun emptyFamily() {
-        val f: Family<AbElement> = ImmEmptyFamily
+        val f: Family<AbElement> = EmptyFamily
         assertThat(f.size).isEqualTo(0)
         assertThat(f.isEmpty()).isTrue()
         assertThat(f.isNotEmpty()).isFalse()
@@ -22,7 +25,7 @@ class ImmFamilyTest
 
     @Test
     fun emptyFamilyIterator() {
-        val f: Family<AbElement> = ImmEmptyFamily
+        val f: Family<AbElement> = EmptyFamily
         val iterator = f.iterator()
         assertThat(iterator.hasNext()).isFalse()
     }
