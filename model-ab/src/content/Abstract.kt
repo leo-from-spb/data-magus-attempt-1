@@ -16,3 +16,17 @@ interface AbElement
 
 }
 
+
+/**
+ * Abstract element with name.
+ */
+interface AbNamedElement : AbElement
+{
+
+    /**
+     * The name of the element.
+     */
+    val name: String?
+
+}
+

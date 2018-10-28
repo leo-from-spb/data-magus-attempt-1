@@ -1,9 +1,9 @@
 package com.jetbrains.datamagus.model.content
 
 
-interface ConElement : AbElement
+interface ConElement : AbNamedElement
 {
-    val name: String?
+    
 }
 
 
