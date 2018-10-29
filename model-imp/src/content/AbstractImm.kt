@@ -1,7 +1,5 @@
 package org.jetbrains.datamagus.model.content
 
-import com.jetbrains.datamagus.model.content.AbElement
-
 abstract class ImmElement : AbElement
 {
 

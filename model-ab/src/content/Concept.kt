@@ -1,6 +1,6 @@
-package com.jetbrains.datamagus.model.content
+package org.jetbrains.datamagus.model.content
 
-import com.jetbrains.datamagus.model.ancillary.Family
+import org.jetbrains.datamagus.model.ancillary.Family
 
 
 interface ConElement : AbNamedElement

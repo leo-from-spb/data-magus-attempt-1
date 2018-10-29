@@ -1,11 +1,8 @@
 package org.jetbrains.datamagus.model.ancillary
 
 
-import com.jetbrains.datamagus.model.ancillary.Family
-import com.jetbrains.datamagus.model.ancillary.findByName
-import com.jetbrains.datamagus.model.ancillary.indexOfName
-import com.jetbrains.datamagus.model.content.AbElement
 import org.assertj.core.api.Assertions.assertThat
+import org.jetbrains.datamagus.model.content.AbElement
 import org.jetbrains.datamagus.model.content.ImmConAttribute
 import org.jetbrains.datamagus.model.content.ImmConDomain
 import org.jetbrains.datamagus.model.content.ImmElement

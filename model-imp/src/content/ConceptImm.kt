@@ -1,6 +1,5 @@
 package org.jetbrains.datamagus.model.content
 
-import com.jetbrains.datamagus.model.content.*
 import org.jetbrains.datamagus.model.ancillary.EmptyFamily
 import org.jetbrains.datamagus.model.ancillary.ImmFamily
 

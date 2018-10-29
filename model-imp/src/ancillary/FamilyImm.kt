@@ -1,6 +1,5 @@
 package org.jetbrains.datamagus.model.ancillary
 
-import com.jetbrains.datamagus.model.ancillary.Family
 import org.jetbrains.datamagus.model.content.ImmElement
 
 sealed class ImmFamily<out E: ImmElement> : Family<E>

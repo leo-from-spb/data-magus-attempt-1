@@ -1,4 +1,4 @@
 /**
  * DataMagus Model.
  */
-package com.jetbrains.datamagus.model;
+package org.jetbrains.datamagus.model;

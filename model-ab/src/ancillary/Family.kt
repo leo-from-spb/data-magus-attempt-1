@@ -1,7 +1,7 @@
-package com.jetbrains.datamagus.model.ancillary
+package org.jetbrains.datamagus.model.ancillary
 
-import com.jetbrains.datamagus.model.content.AbElement
-import com.jetbrains.datamagus.model.content.AbNamedElement
+import org.jetbrains.datamagus.model.content.AbElement
+import org.jetbrains.datamagus.model.content.AbNamedElement
 
 interface Family<out E: AbElement> : Collection<E>
 {

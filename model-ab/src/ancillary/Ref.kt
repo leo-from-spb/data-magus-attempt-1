@@ -1,4 +1,4 @@
-package com.jetbrains.datamagus.model.ancillary
+package org.jetbrains.datamagus.model.ancillary
 
 sealed class Ref
 {
