@@ -1,0 +1,18 @@
+DataMagus Model Info
+====================
+
+ENTITIES
+--------------------------------------
+F  Name                       Chi Prop
+--------------------------------------
++  AbElement                    0    1
+@  ProProject                   0    2
++  AbNamedElement               0    1
++  ConElement                   0    0
++  ConArea                      2    0
+@  ConModel                     1    0
+@  ConSubArea                   0    0
+@  ConEntity                    0    0
+@  ConAttribute                 0    0
+--------------------------------------
+

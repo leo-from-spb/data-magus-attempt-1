@@ -1,10 +1,9 @@
 package org.jetbrains.datamagus.model.crocodileGena
 
-object MetaModel
+class MetaModel
 {
-    val classes = ArrayList<MetaNode>()
 
-    
+    val entities = ArrayList<MetaEntity>()
 
 
 }

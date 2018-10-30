@@ -1,42 +1,79 @@
 package org.jetbrains.datamagus.model.crocodileGena
 
 import org.jetbrains.datamagus.model.ModelMetaInfo
+import org.jetbrains.datamagus.model.ancillary.Family
 import org.jetbrains.datamagus.model.content.AbElement
 import org.jetbrains.datamagus.util.choose
+import org.jetbrains.datamagus.util.prefixed
 import kotlin.reflect.KClass
-import kotlin.reflect.jvm.jvmErasure
+import kotlin.reflect.KProperty
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.declaredMemberProperties
 
 
-fun loadMetaModel()
+class MetaLoader
+(
+        private val model: MetaModel
+)
 {
-    say("Loading model classes: ")
 
-    for (finalElementKlass in ModelMetaInfo.FinalElements) loadNode(finalElementKlass, true)
-
-    say("\tloaded ${MetaModel.classes.size} classes.")
-}
-
-private fun loadNode(primaryInterface: KClass<out AbElement>, isFinal: Boolean)
-{
-    val found = MetaModel.classes.find { it.primaryInterface == primaryInterface }
-    if (found != null)
+    fun loadMetaModel()
     {
-        if (found.isFinal == isFinal) return // already loaded
-        else throw Exception("Loading collision in class ${primaryInterface.simpleName}: ambiguous finality")
+        say("Loading model classes: ")
+
+        for (finalElementKlass in ModelMetaInfo.FinalEntities) loadEntity(finalElementKlass, true)
+
+        say("\tloaded ${model.entities.size} classes.")
     }
 
-    val superTypes = primaryInterface.supertypes
-    for (superType in superTypes)
+    private fun loadEntity(primaryInterface: KClass<out AbElement>, isFinal: Boolean)
     {
-        val erasure = superType.jvmErasure
-        if (erasure.qualifiedName?.startsWith("org.jetbrains.datamagus.model.content.") == true) {
-            val superInterface = erasure as KClass<out AbElement>
-            loadNode(superInterface, false)
+        val found = model.entities.find { it.primaryInterface == primaryInterface }
+        if (found != null)
+        {
+            if (found.isFinal == isFinal) return // already loaded
+            else throw Exception("Loading collision in entity ${primaryInterface.simpleName}: ambiguous finality")
+        }
+
+        val superTypes =
+                primaryInterface
+                    .supertypes
+                    .filter { it.arguments.isEmpty() }
+                    .mapNotNull { it.classifier as? KClass<*> }
+                    .filter { it.qualifiedName prefixed "org.jetbrains.datamagus.model.content." }
+        for (superType in superTypes)
+        {
+            @Suppress("unchecked_cast")
+            val superInterface = superType as KClass<out AbElement>
+            loadEntity(superInterface, false)
+        }
+
+        say("\t${isFinal.choose('@', '+')} ${primaryInterface.simpleName}")
+
+        val entity = MetaEntity(primaryInterface, isFinal)
+        model.entities += entity
+
+        loadChildrenAndProperties(entity)
+    }
+
+
+    private fun loadChildrenAndProperties(entity: MetaEntity)
+    {
+        val koProperties =
+                entity.primaryInterface
+                    .declaredMemberProperties
+                    .filter { it.isAbstract && it.visibility == KVisibility.PUBLIC && !it.isFinal }
+        for (p: KProperty<Any?> in koProperties)
+        {
+            if (p.returnType.classifier == Family::class) {
+                val child = MetaChild(p)
+                entity.children.add(child)
+            }
+            else {
+                val property = MetaProperty(p)
+                entity.properties.add(property)
+            }
         }
     }
 
-    say("\t${isFinal.choose('@', '+')} ${primaryInterface.simpleName}")
-    val metaNode = MetaNode(primaryInterface, isFinal)
-    MetaModel.classes += metaNode
 }
-

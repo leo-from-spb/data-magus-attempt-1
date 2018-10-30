@@ -6,7 +6,7 @@ import kotlin.reflect.KClass
 object ModelMetaInfo
 {
 
-    val FinalElements: List<KClass<out AbElement>> = listOf(
+    val FinalEntities: List<KClass<out AbElement>> = listOf(
             ProProject::class,
             ConModel::class,
             ConSubArea::class,
