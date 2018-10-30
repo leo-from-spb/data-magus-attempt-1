@@ -9,7 +9,9 @@ import kotlin.reflect.KClass
 //@formatter:off
 
 infix fun<X> X?             .mustBe(expect: X)           { assertThat(this).isEqualTo(expect)           }
+infix fun<X> X?             .mustBeSameAs(expect: X)     { assertThat(this).isSameAs(expect)            }
 infix fun<X> X?             .mustNotBe(expect: X)        { assertThat(this).isNotEqualTo(expect)        }
+infix fun<X> X?             .mustNotBeSameAs(expect: X)  { assertThat(this).isNotSameAs(expect)         }
 
 infix fun<X> X?             .mustBe(marker: Null)        { assertThat(this).isNull()                    }
 infix fun<X> X?             .mustBe(marker: NotNull)     { assertThat(this).isNotNull()                 }

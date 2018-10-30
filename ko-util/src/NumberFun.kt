@@ -1,6 +1,6 @@
 @file:JvmName("NumberFun")
+@file:Suppress("UsePropertyAccessSyntax", "unused", "nothing_to_inline")
 
-@file:Suppress("UsePropertyAccessSyntax", "unused")
 package org.jetbrains.datamagus.util
 
 const val `0`: Byte = 0.toByte()
@@ -14,7 +14,9 @@ const val `7`: Byte = 7.toByte()
 const val `8`: Byte = 8.toByte()
 const val `9`: Byte = 9.toByte()
 
-inline val Boolean.byte: Byte get() = if (this) `1` else `0`
-inline val Boolean.int: Int get() = if (this) 1 else 0
 
-inline fun<E> Boolean.choose(onTrue: E, onFalse: E) = if (this) onTrue else onFalse
+fun Int.toStringPad(width: Int): String {
+    var s = this.toString()
+    if (s.length < width) s = s.padStart(width)
+    return s
+}
