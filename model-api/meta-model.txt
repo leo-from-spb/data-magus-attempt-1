@@ -1,18 +1,31 @@
 DataMagus Model Info
 ====================
 
+
+AREAS
+------------------------------------
+Code  Name                       Ent
+------------------------------------
+Ab    Abstract                     2
+Pro   Project                      1
+Con   Concept                      6
+Db    Database                     0
+Dia   Diagram                      0
+------------------------------------
+
+
 ENTITIES
 --------------------------------------
 F  Name                       Chi Prop
 --------------------------------------
-+  AbElement                    0    1
-@  ProProject                   0    2
-+  AbNamedElement               0    1
-+  ConElement                   0    0
-+  ConArea                      2    0
-@  ConModel                     1    0
-@  ConSubArea                   0    0
-@  ConEntity                    0    0
-@  ConAttribute                 0    0
++  Element                      0    1
+@  Project                      0    2
++  NamedElement                 0    1
++  Element                      0    1
++  Area                         2    0
+@  Model                        1    0
+@  SubArea                      0    0
+@  Entity                       0    0
+@  Attribute                    0    1
 --------------------------------------
 

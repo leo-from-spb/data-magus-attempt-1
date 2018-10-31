@@ -6,14 +6,21 @@ import kotlin.reflect.KProperty
 
 sealed class MetaMatter
 {
-    val nameCap: String
-    val nameDec: String
+
+}
 
 
-    constructor(name: String)
+class MetaArea : MetaMatter
+{
+    val code: String
+    val name: String
+
+    val entities = mutableListOf<MetaEntity>()
+
+    constructor(code: String, name: String)
     {
-        this.nameCap = name.capitalize()
-        this.nameDec = name.decapitalize()
+        this.code = code
+        this.name = name
     }
 }
 
@@ -23,11 +30,17 @@ class MetaEntity : MetaMatter
     val primaryInterface: KClass<out AbElement>
     val isFinal: Boolean
 
-    var children = ArrayList<MetaChild>()
-    var properties = ArrayList<MetaProperty>()
+    lateinit var area: MetaArea
+    lateinit var name: String // the name is Capitalized
+
+    val nameDec      get() = name.decapitalize()
+    val primaryName  get() = area.code + name
+
+
+    val children   = mutableListOf<MetaFamily>()
+    val properties = mutableListOf<MetaProperty>()
 
     constructor(primaryInterface: KClass<out AbElement>, isFinal: Boolean)
-            : super(primaryInterface.simpleName!!)
     {
         this.primaryInterface = primaryInterface
         this.isFinal = isFinal
@@ -35,12 +48,11 @@ class MetaEntity : MetaMatter
 }
 
 
-class MetaChild : MetaMatter
+class MetaFamily : MetaMatter
 {
     val koProperty: KProperty<Any?>
 
     constructor(property: KProperty<Any?>)
-            : super(property.name)
     {
         this.koProperty = property
     }
@@ -51,8 +63,13 @@ class MetaProperty : MetaMatter
 {
     val koProperty: KProperty<Any?>
 
+    lateinit var name: String
+    lateinit var type: String
+
+    var origin: MetaProperty? = null
+    var nullable = false
+
     constructor(property: KProperty<Any?>)
-            : super(property.name)
     {
         this.koProperty = property
     }

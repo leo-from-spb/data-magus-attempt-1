@@ -66,7 +66,7 @@ class MetaLoader
         for (p: KProperty<Any?> in koProperties)
         {
             if (p.returnType.classifier == Family::class) {
-                val child = MetaChild(p)
+                val child = MetaFamily(p)
                 entity.children.add(child)
             }
             else {

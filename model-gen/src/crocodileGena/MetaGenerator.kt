@@ -13,10 +13,13 @@ object MetaGenerator
         val model = MetaModel()
         val loader = MetaLoader(model)
         val processor = MetaProcessor(model)
+        val producer = MetaProducer(model)
 
         loader.loadMetaModel()
         processor.process()
         processor.report(Paths.get("model-api/meta-model.txt"))
+        producer.init()
+        producer.produceCodeFiles()
 
         say("\nOk.\n")
     }
