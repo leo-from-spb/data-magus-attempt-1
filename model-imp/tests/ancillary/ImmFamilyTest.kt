@@ -3,9 +3,9 @@ package org.jetbrains.datamagus.model.ancillary
 
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.datamagus.model.content.AbElement
-import org.jetbrains.datamagus.model.content.ImmConAttribute
-import org.jetbrains.datamagus.model.content.ImmConDomain
-import org.jetbrains.datamagus.model.content.ImmElement
+import org.jetbrains.datamagus.model.content.FixConAttribute
+import org.jetbrains.datamagus.model.content.FixConDomain
+import org.jetbrains.datamagus.model.content.FixElement
 import org.junit.jupiter.api.Test
 
 
@@ -29,8 +29,8 @@ class ImmFamilyTest
 
     @Test
     fun singletonFamily() {
-        val e: ImmElement = ImmConDomain(111)
-        val f: Family<AbElement> = ImmSingletonFamily<ImmElement>(e)
+        val e: FixElement = FixConDomain(111)
+        val f: Family<AbElement> = FixSingletonFamily<FixElement>(e)
         assertThat(f[0]).isSameAs(e)
         assertThat(f.size).isEqualTo(1)
         assertThat(f.isEmpty()).isFalse()
@@ -39,8 +39,8 @@ class ImmFamilyTest
 
     @Test
     fun singletonFamilyIterator() {
-        val e: ImmElement = ImmConDomain(111)
-        val f: Family<AbElement> = ImmSingletonFamily<ImmElement>(e)
+        val e: FixElement = FixConDomain(111)
+        val f: Family<AbElement> = FixSingletonFamily<FixElement>(e)
         val iterator = f.iterator()
         assertThat(iterator.hasNext()).isTrue()
         assertThat(iterator.next()).isSameAs(e)
@@ -49,10 +49,10 @@ class ImmFamilyTest
 
     @Test
     fun multFamily() {
-        val e1: ImmElement = ImmConDomain(111)
-        val e2: ImmElement = ImmConDomain(222)
-        val e3: ImmElement = ImmConDomain(333)
-        val f: Family<AbElement> = ImmMultFamily(arrayOf(e1, e2, e3))
+        val e1: FixElement = FixConDomain(111)
+        val e2: FixElement = FixConDomain(222)
+        val e3: FixElement = FixConDomain(333)
+        val f: Family<AbElement> = FixMultFamily(arrayOf(e1, e2, e3))
         assertThat(f[0]).isSameAs(e1)
         assertThat(f[1]).isSameAs(e2)
         assertThat(f[2]).isSameAs(e3)
@@ -63,10 +63,10 @@ class ImmFamilyTest
 
     @Test
     fun multFamilyIterator() {
-        val e1: ImmElement = ImmConDomain(111)
-        val e2: ImmElement = ImmConDomain(222)
-        val e3: ImmElement = ImmConDomain(333)
-        val f: Family<AbElement> = ImmMultFamily(arrayOf(e1, e2, e3))
+        val e1: FixElement = FixConDomain(111)
+        val e2: FixElement = FixConDomain(222)
+        val e3: FixElement = FixConDomain(333)
+        val f: Family<AbElement> = FixMultFamily(arrayOf(e1, e2, e3))
         val iterator = f.iterator()
         assertThat(iterator.hasNext()).isTrue()
         assertThat(iterator.next()).isSameAs(e1)
@@ -79,13 +79,13 @@ class ImmFamilyTest
 
     @Test
     fun familyOf_0() {
-        val f = familyOf<ImmConAttribute>()
+        val f = familyOf<FixConAttribute>()
         assertThat(f.size).isEqualTo(0)
     }
 
     @Test
     fun familyOf_1() {
-        val a1 = ImmConAttribute(26, "Mura")
+        val a1 = FixConAttribute(26, "Mura")
         val f = familyOf(a1)
         assertThat(f.size).isEqualTo(1)
         assertThat(f.first).isSameAs(a1)
@@ -93,8 +93,8 @@ class ImmFamilyTest
 
     @Test
     fun familyOf_2() {
-        val a1 = ImmConAttribute(26, "Мура")
-        val a2 = ImmConAttribute(42, "Лабуда")
+        val a1 = FixConAttribute(26, "Мура")
+        val a2 = FixConAttribute(42, "Лабуда")
         val f = familyOf(a1, a2)
         assertThat(f.size).isEqualTo(2)
         assertThat(f.first).isSameAs(a1)
@@ -104,10 +104,10 @@ class ImmFamilyTest
 
     @Test
     fun findByName_basic() {
-        val a1 = ImmConAttribute(11, "Мура")
-        val a2 = ImmConAttribute(22, "Лабуда")
-        val a3 = ImmConAttribute(26, "То что надо")
-        val a4 = ImmConAttribute(66, "Что-то другое")
+        val a1 = FixConAttribute(11, "Мура")
+        val a2 = FixConAttribute(22, "Лабуда")
+        val a3 = FixConAttribute(26, "То что надо")
+        val a4 = FixConAttribute(66, "Что-то другое")
         val f = familyOf(a1, a2, a3, a4)
         assertThat(f.findByName("То что надо")).isSameAs(a3)
         assertThat(f.findByName("то что НАДО")).isSameAs(a3)
@@ -116,10 +116,10 @@ class ImmFamilyTest
 
     @Test
     fun indexOfName_basic() {
-        val a1 = ImmConAttribute(11, "Мура")
-        val a2 = ImmConAttribute(22, "Лабуда")
-        val a3 = ImmConAttribute(26, "То что надо")
-        val a4 = ImmConAttribute(66, "Что-то другое")
+        val a1 = FixConAttribute(11, "Мура")
+        val a2 = FixConAttribute(22, "Лабуда")
+        val a3 = FixConAttribute(26, "То что надо")
+        val a4 = FixConAttribute(66, "Что-то другое")
         val f = familyOf(a1, a2, a3, a4)
         assertThat(f.indexOfName("То что надо")).isEqualTo(2)
         assertThat(f.indexOfName("то что НАДО")).isEqualTo(2)

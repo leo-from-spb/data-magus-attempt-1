@@ -28,7 +28,7 @@ class MetaLoader
 
     private fun loadEntity(primaryInterface: KClass<out AbElement>, isFinal: Boolean)
     {
-        val found = model.entities.find { it.primaryInterface == primaryInterface }
+        val found = model.entities.find { it.klass == primaryInterface }
         if (found != null)
         {
             if (found.isFinal == isFinal) return // already loaded
@@ -41,33 +41,33 @@ class MetaLoader
                     .filter { it.arguments.isEmpty() }
                     .mapNotNull { it.classifier as? KClass<*> }
                     .filter { it.qualifiedName prefixed "org.jetbrains.datamagus.model.content." }
-        for (superType in superTypes)
-        {
+        val superKlasses = superTypes.map {
             @Suppress("unchecked_cast")
-            val superInterface = superType as KClass<out AbElement>
-            loadEntity(superInterface, false)
+            it as ClassOfElement
         }
+        for (superKlass in superKlasses) loadEntity(superKlass, false)
 
         say("\t${isFinal.choose('@', '+')} ${primaryInterface.simpleName}")
 
-        val entity = MetaEntity(primaryInterface, isFinal)
+        val entity = MetaEntity(primaryInterface, isFinal, superKlasses)
         model.entities += entity
 
-        loadChildrenAndProperties(entity)
+        loadFamiliesAndProperties(entity)
     }
 
 
-    private fun loadChildrenAndProperties(entity: MetaEntity)
+    private fun loadFamiliesAndProperties(entity: MetaEntity)
     {
         val koProperties =
-                entity.primaryInterface
+                entity.klass
                     .declaredMemberProperties
                     .filter { it.isAbstract && it.visibility == KVisibility.PUBLIC && !it.isFinal }
+                    .filter { it.name != "id" }
         for (p: KProperty<Any?> in koProperties)
         {
             if (p.returnType.classifier == Family::class) {
                 val child = MetaFamily(p)
-                entity.children.add(child)
+                entity.families.add(child)
             }
             else {
                 val property = MetaProperty(p)

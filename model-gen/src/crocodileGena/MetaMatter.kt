@@ -4,10 +4,16 @@ import org.jetbrains.datamagus.model.content.AbElement
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
+/**
+ * The base class for all meta-model nodes
+ */
 sealed class MetaMatter
 {
 
 }
+
+
+typealias ClassOfElement = KClass<out AbElement>
 
 
 class MetaArea : MetaMatter
@@ -27,50 +33,71 @@ class MetaArea : MetaMatter
 
 class MetaEntity : MetaMatter
 {
-    val primaryInterface: KClass<out AbElement>
+    val klass: ClassOfElement
+    val klassName: String
     val isFinal: Boolean
+    val superKlasses: List<ClassOfElement>
 
     lateinit var area: MetaArea
     lateinit var name: String // the name is Capitalized
 
-    val nameDec      get() = name.decapitalize()
-    val primaryName  get() = area.code + name
+    val supers        = mutableListOf<MetaEntity>()
+    val families      = mutableListOf<MetaFamily>()
+    val properties    = mutableListOf<MetaProperty>()
 
+    val allSupers     = mutableListOf<MetaEntity>()
+    val allFamilies   = mutableListOf<MetaFamily>()
+    val allProperties = mutableListOf<MetaProperty>()
 
-    val children   = mutableListOf<MetaFamily>()
-    val properties = mutableListOf<MetaProperty>()
-
-    constructor(primaryInterface: KClass<out AbElement>, isFinal: Boolean)
+    constructor(koClass: ClassOfElement, isFinal: Boolean, superKlasses: List<ClassOfElement>)
     {
-        this.primaryInterface = primaryInterface
+        this.klass = koClass
+        this.klassName = koClass.simpleName!!
         this.isFinal = isFinal
+        this.superKlasses = superKlasses
     }
+
+    override fun toString() = "entity $klassName"
 }
 
 
 class MetaFamily : MetaMatter
 {
-    val koProperty: KProperty<Any?>
+    val familyProp: KProperty<Any?>
+    val familyName: String
+    val innerClass: ClassOfElement
+    val innerClassName: String
+    lateinit var innerEntity: MetaEntity
 
-    constructor(property: KProperty<Any?>)
+    constructor(familyProp: KProperty<Any?>)
     {
-        this.koProperty = property
+        this.familyProp = familyProp
+        this.familyName = familyProp.name
+        @Suppress("unchecked_cast")
+        innerClass = familyProp.returnType.arguments[0].type!!.classifier as ClassOfElement
+        innerClassName = innerClass.simpleName!!
     }
+
+    override fun toString() = "family $familyName of $innerClassName"
 }
 
 
 class MetaProperty : MetaMatter
 {
-    val koProperty: KProperty<Any?>
+    val propProp: KProperty<Any?>
 
-    lateinit var name: String
-    lateinit var type: String
+    lateinit var propName:     String
+    lateinit var propTypeCore: String
+    lateinit var propTypeFull: String
+    lateinit var propDefault:  String
 
     var origin: MetaProperty? = null
     var nullable = false
 
-    constructor(property: KProperty<Any?>)
+    constructor(koProp: KProperty<Any?>)
     {
-        this.koProperty = property
+        this.propProp = koProp
     }
+
+    override fun toString() = "property $propName: $propTypeFull"
 }

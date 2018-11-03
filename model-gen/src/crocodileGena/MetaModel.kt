@@ -1,10 +1,8 @@
 package org.jetbrains.datamagus.model.crocodileGena
 
-import java.util.*
-
 class MetaModel
 {
-    val areas = listOf<MetaArea>(
+    val areas = listOf(
             MetaArea("Ab", "Abstract"),
             MetaArea("Pro", "Project"),
             MetaArea("Con", "Concept"),
@@ -12,12 +10,11 @@ class MetaModel
             MetaArea("Dia", "Diagram")
     )
 
-    val areaCodes: MutableMap<String, MetaArea> = TreeMap()
+    val areasByCodes = mutableMapOf<String, MetaArea>()
 
-    val entities = ArrayList<MetaEntity>()
+    val entities = mutableListOf<MetaEntity>()
 
-
-
+    val entitiesByClass = mutableMapOf<String, MetaEntity>()
 
 }
 

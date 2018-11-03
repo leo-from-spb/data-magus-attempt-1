@@ -1,6 +1,6 @@
 package org.jetbrains.datamagus.model.content
 
-abstract class ImmElement : AbElement
+abstract class FixElement : AbElement
 {
 
     final override val id: Int

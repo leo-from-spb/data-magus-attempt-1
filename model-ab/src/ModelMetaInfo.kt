@@ -10,6 +10,7 @@ object ModelMetaInfo
             ProProject::class,
             ConModel::class,
             ConSubArea::class,
+            ConDomain::class,
             ConEntity::class,
             ConAttribute::class
     )

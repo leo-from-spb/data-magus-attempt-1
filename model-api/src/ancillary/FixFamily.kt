@@ -1,26 +1,26 @@
 package org.jetbrains.datamagus.model.ancillary
 
-import org.jetbrains.datamagus.model.content.ImmElement
+import org.jetbrains.datamagus.model.content.FixElement
 
-sealed class ImmFamily<out E: ImmElement> : Family<E>
+sealed class FixFamily<out E: FixElement> : Family<E>
 
 
-fun <E: ImmElement> familyOf(vararg elements: E): ImmFamily<E> =
+fun <E: FixElement> familyOf(vararg elements: E): FixFamily<E> =
         when (elements.size) {
             0    -> EmptyFamily
-            1    -> ImmSingletonFamily(elements[0])
-            else -> ImmMultFamily(elements, copy = true)
+            1    -> FixSingletonFamily(elements[0])
+            else -> FixMultFamily(elements, copy = true)
         }
 
-fun <E: ImmElement> familyOf(elements: Collection<E>): ImmFamily<E> =
+fun <E: FixElement> familyOf(elements: Collection<E>): FixFamily<E> =
         when (elements.size) {
             0    -> EmptyFamily
-            1    -> ImmSingletonFamily(elements.first())
-            else -> ImmMultFamily(elements.toTypedArray<ImmElement>(), copy = false)
+            1    -> FixSingletonFamily(elements.first())
+            else -> FixMultFamily(elements.toTypedArray<FixElement>(), copy = false)
         }
 
 
-object EmptyFamily : ImmFamily<Nothing>()
+object EmptyFamily : FixFamily<Nothing>()
 {
     override fun get(index: Int): Nothing = nothing()
     override val first: Nothing get() = nothing()
@@ -43,11 +43,11 @@ object EmptyFamily : ImmFamily<Nothing>()
 private inline fun nothing(): Nothing { throw IllegalStateException("The family is empty") }
 
 
-class ImmSingletonFamily<out E: ImmElement>
+class FixSingletonFamily<out E: FixElement>
 (
         private val theElement: E
 )
-    : ImmFamily<E>()
+    : FixFamily<E>()
 {
 
     override fun get(index: Int): E =
@@ -74,23 +74,23 @@ class ImmSingletonFamily<out E: ImmElement>
 
 
 @Suppress("unchecked_cast")
-class ImmMultFamily<out E: ImmElement> : ImmFamily<E>
+class FixMultFamily<out E: FixElement> : FixFamily<E>
 {
 
-    private val elements: Array<out ImmElement>
+    private val elements: Array<out FixElement>
 
 
     constructor(elements: Array<E>) : this(elements, copy = true)
 
-    internal constructor(elements: Array<out ImmElement>, copy: Boolean) : super()
+    internal constructor(elements: Array<out FixElement>, copy: Boolean) : super()
     {
         if (copy)
         {
             val n = elements.size
-            val a: Array<out ImmElement?> = arrayOfNulls(n)
+            val a: Array<out FixElement?> = arrayOfNulls(n)
             System.arraycopy(elements, 0, a, 0, n)
             @Suppress("unchecked_cast")
-            this.elements = a as Array<out ImmElement>
+            this.elements = a as Array<out FixElement>
         }
         else
         {

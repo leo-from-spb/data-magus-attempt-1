@@ -8,24 +8,25 @@ Code  Name                       Ent
 ------------------------------------
 Ab    Abstract                     2
 Pro   Project                      1
-Con   Concept                      6
+Con   Concept                      7
 Db    Database                     0
 Dia   Diagram                      0
 ------------------------------------
 
 
 ENTITIES
---------------------------------------
-F  Name                       Chi Prop
---------------------------------------
-+  Element                      0    1
-@  Project                      0    2
-+  NamedElement                 0    1
-+  Element                      0    1
-+  Area                         2    0
-@  Model                        1    0
-@  SubArea                      0    0
-@  Entity                       0    0
-@  Attribute                    0    1
---------------------------------------
+-------------------------------------------
+F  Area Name                       Chi Prop
+-------------------------------------------
++  Ab   Element                      0    0
+@  Pro  Project                      0    2
++  Ab   NamedElement                 0    1
++  Con  Element                      0    1
++  Con  Area                         2    0
+@  Con  Model                        1    0
+@  Con  SubArea                      0    0
+@  Con  Domain                       0    1
+@  Con  Entity                       0    0
+@  Con  Attribute                    0    1
+-------------------------------------------
 

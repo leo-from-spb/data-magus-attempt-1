@@ -1,5 +1,5 @@
 @file:JvmName("NumberFun")
-@file:Suppress("UsePropertyAccessSyntax", "unused", "nothing_to_inline")
+@file:Suppress("UsePropertyAccessSyntax", "unused", "nothing_to_inline", "experimental_unsigned_literals")
 
 package org.jetbrains.datamagus.util
 
