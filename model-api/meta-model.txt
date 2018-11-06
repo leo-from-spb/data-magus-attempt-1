@@ -19,8 +19,8 @@ ENTITIES
 F  Area Name                       Chi Prop
 -------------------------------------------
 +  Ab   Element                      0    0
-@  Pro  Project                      0    2
 +  Ab   NamedElement                 0    1
+@  Pro  Project                      0    1
 +  Con  Element                      0    1
 +  Con  Area                         2    0
 @  Con  Model                        1    0

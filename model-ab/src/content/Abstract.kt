@@ -1,5 +1,8 @@
 package org.jetbrains.datamagus.model.content
 
+import org.jetbrains.datamagus.model.ancillary.Family
+import org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.ancillary.Prop
+
 /**
  * Abstract model element.
  * Every model element must implement this interface.
@@ -14,6 +17,11 @@ interface AbElement
      */
     val id: Int
 
+    /**
+     * All families, including empty ones, in the stable pre-defined order.
+     */
+    val families: List<Family<AbElement>>
+
 }
 
 
@@ -26,6 +34,7 @@ interface AbNamedElement : AbElement
     /**
      * The name of the element.
      */
+    @Prop
     val name: String?
 
 }

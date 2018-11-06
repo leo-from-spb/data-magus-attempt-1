@@ -58,6 +58,9 @@ class MetaProducer
             |¬${produceFixContent().joinToString(separator = ",\n¬")}
             |)
             |: FixElement(id), $klassName
+            |{
+            | 	override val families: List<FixFamily<FixElement>> get() = ${allFamilies.toText(", ", "listOf(", ")", empty = "emptyList()") { familyName }}
+            |}
             |
             """.trimMargin()
 
@@ -68,7 +71,7 @@ class MetaProducer
 
     private fun MetaFamily.produceFixText() =
             """
-            |override val ${familyName pad 15}: ${"ImmFamily<Fix$innerClassName>" pad 26} = EmptyFamily
+            |override val ${familyName pad 15}: ${"FixFamily<Fix$innerClassName>" pad 26} = EmptyFamily
             """.trimMargin()
 
     private fun MetaProperty.produceFixText() =

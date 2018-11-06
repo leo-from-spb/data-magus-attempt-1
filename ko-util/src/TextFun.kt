@@ -26,13 +26,25 @@ fun CharSequence.indexOfCap(from: Int = 0, till: Int = this.length, notFound: In
 
 
 
-fun<E> Iterable<E>.toText(delimiter: String = "\n", format: E.() -> String): CharSequence {
+fun<E> Iterable<E>.toText(delimiter: String = "\n",
+                          prefix: String = "",
+                          suffix: String = "",
+                          empty: String? = null,
+                          //single: String? = null,
+                          format: E.() -> String): CharSequence {
+    var n = 0
     val b = StringBuilder()
     for (e in this)
     {
-        if (b.isNotEmpty()) b.append(delimiter)
+        b.append(if (n == 0) prefix else delimiter)
         b.append(e.format())
+        n++
     }
+    when (n) {
+        0 -> if (empty != null) return empty
+        //1 -> if (single != null) return single
+    }
+    b.append(suffix)
     return b
 }
 

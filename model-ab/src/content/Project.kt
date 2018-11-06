@@ -1,15 +1,13 @@
 package org.jetbrains.datamagus.model.content
 
-interface ProProject : AbElement {
+import org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.ancillary.Prop
+
+interface ProProject : AbNamedElement {
 
     /**
      * Version of the model content.
      */
+    @Prop
     val version: Int
-
-    /**
-     * Name of the project.
-     */
-    val name: String
 
 }

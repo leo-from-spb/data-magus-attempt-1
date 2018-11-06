@@ -1,5 +1,7 @@
 package org.jetbrains.datamagus.model.content
 
+import org.jetbrains.datamagus.model.ancillary.FixFamily
+
 abstract class FixElement : AbElement
 {
 
@@ -9,6 +11,10 @@ abstract class FixElement : AbElement
     {
         this.id = id
     }
+
+
+    abstract override val families: List<FixFamily<FixElement>>
+
 
     override fun hashCode() = id
     override fun equals(other: Any?) = this === other // implemented just to mute the warning

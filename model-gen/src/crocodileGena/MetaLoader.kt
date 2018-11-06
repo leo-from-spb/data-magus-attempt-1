@@ -3,12 +3,14 @@ package org.jetbrains.datamagus.model.crocodileGena
 import org.jetbrains.datamagus.model.ModelMetaInfo
 import org.jetbrains.datamagus.model.ancillary.Family
 import org.jetbrains.datamagus.model.content.AbElement
+import org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.ancillary.Prop
 import org.jetbrains.datamagus.util.choose
 import org.jetbrains.datamagus.util.prefixed
 import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 import kotlin.reflect.KVisibility
 import kotlin.reflect.full.declaredMemberProperties
+import kotlin.reflect.full.findAnnotation
 
 
 class MetaLoader
@@ -65,13 +67,15 @@ class MetaLoader
                     .filter { it.name != "id" }
         for (p: KProperty<Any?> in koProperties)
         {
-            if (p.returnType.classifier == Family::class) {
-                val child = MetaFamily(p)
-                entity.families.add(child)
-            }
-            else {
-                val property = MetaProperty(p)
-                entity.properties.add(property)
+            when {
+                p.returnType.classifier == Family::class -> {
+                    val child = MetaFamily(p)
+                    entity.families.add(child)
+                }
+                p.findAnnotation<Prop>() != null         -> {
+                    val property = MetaProperty(p)
+                    entity.properties.add(property)
+                }
             }
         }
     }
