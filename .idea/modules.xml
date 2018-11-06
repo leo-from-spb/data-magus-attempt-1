@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/model-api/model-api.iml" filepath="$PROJECT_DIR$/model-api/model-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/model-gen/model-gen.iml" filepath="$PROJECT_DIR$/model-gen/model-gen.iml" />
       <module fileurl="file://$PROJECT_DIR$/model-imp/model-imp.iml" filepath="$PROJECT_DIR$/model-imp/model-imp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sql/sql.iml" filepath="$PROJECT_DIR$/sql/sql.iml" />
     </modules>
   </component>
 </project>
