@@ -11,6 +11,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="model-ab" exported="" />
     <orderEntry type="module" module-name="model-api" exported="" />
+    <orderEntry type="module" module-name="ko-util" />
     <orderEntry type="library" name="kotlin-stdlib-jdk8" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-jupiter-api" level="project" />
     <orderEntry type="library" scope="TEST" name="junit-jupiter-params" level="project" />

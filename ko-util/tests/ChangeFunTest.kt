@@ -33,7 +33,6 @@ internal class ChangeFunTest
     fun change_Short_better() {
         val _123_: Short = 123
         val _456_: Short = 456
-        val _789_: Short = 789
         _123_ change 123 with 456 mustBe _456_
         _123_ change 456 with 789 mustBe _123_
     }
