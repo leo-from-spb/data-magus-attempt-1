@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.util.org.jetbrains.datamagus.util
+package org.jetbrains.datamagus.util
 
 import org.jetbrains.datamagus.testUtils.assertions.NotEmpty
 import org.jetbrains.datamagus.testUtils.assertions.mustBe

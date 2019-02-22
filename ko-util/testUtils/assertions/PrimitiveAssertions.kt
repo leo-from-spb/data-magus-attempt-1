@@ -4,7 +4,7 @@
 package org.jetbrains.datamagus.testUtils.assertions
 
 import org.assertj.core.api.Assertions.assertThat
-import org.jetbrains.datamagus.util.org.jetbrains.datamagus.util.toShorts
+import org.jetbrains.datamagus.util.toShorts
 
 //@formatter:off
 

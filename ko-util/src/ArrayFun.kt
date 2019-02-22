@@ -1,8 +1,6 @@
 @file:JvmName("ArrayFun")
 
-package org.jetbrains.datamagus.util.org.jetbrains.datamagus.util
-
-import org.jetbrains.datamagus.util.NumberConversionException
+package org.jetbrains.datamagus.util
 
 
 /**

@@ -1,4 +1,4 @@
-package org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.ancillary
+package org.jetbrains.datamagus.model.ancillary
 
 @Target(AnnotationTarget.PROPERTY)
 annotation class Prop

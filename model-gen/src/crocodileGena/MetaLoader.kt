@@ -2,8 +2,8 @@ package org.jetbrains.datamagus.model.crocodileGena
 
 import org.jetbrains.datamagus.model.ModelMetaInfo
 import org.jetbrains.datamagus.model.ancillary.Family
+import org.jetbrains.datamagus.model.ancillary.Prop
 import org.jetbrains.datamagus.model.content.AbElement
-import org.jetbrains.datamagus.model.org.jetbrains.datamagus.model.ancillary.Prop
 import org.jetbrains.datamagus.util.choose
 import org.jetbrains.datamagus.util.prefixed
 import kotlin.reflect.KClass
